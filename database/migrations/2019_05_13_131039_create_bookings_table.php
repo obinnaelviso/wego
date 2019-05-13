@@ -22,7 +22,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('booking_time_id');
             $table->foreign('booking_time_id')->references('id')->on('booking_times')->onDelete('cascade');
             $table->integer('cost');
-            $table->date('time');
+            $table->dateTime('time');
             $table->string('status');
             $table->string('location');
             $table->string('location_link');
