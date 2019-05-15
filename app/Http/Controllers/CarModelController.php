@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\CarModelRequest;
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\CarModel;
 use App\Model\CarCategory;
 use App\Http\Resources\CarModel\CarModelResource;
@@ -8,11 +11,11 @@ use Illuminate\Http\Request;
 
 class CarModelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+
     public function index(CarCategory $car_category)
     {
         return CarModelResource::collection($car_category->car_models);
@@ -34,9 +37,11 @@ class CarModelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CarModelRequest $request, CarCategory $carCategory)
     {
-        //
+        $car_model = new CarModel($request->all());
+        $carCategory->car_models()->save($car_model);
+        return response(['data' => new CarModelResource($car_model)],Response::HTTP_CREATED);
     }
 
     /**
@@ -68,9 +73,10 @@ class CarModelController extends Controller
      * @param  \App\Model\CarModel  $carModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CarModel $carModel)
+    public function update(CarModelRequest $request, CarCategory $carCategory, CarModel $carModel)
     {
-        //
+        $carModel->update($request->all());
+        return response(['data' => new CarModelResource($carModel)],Response::HTTP_CREATED);
     }
 
     /**
@@ -79,8 +85,9 @@ class CarModelController extends Controller
      * @param  \App\Model\CarModel  $carModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CarModel $carModel)
+    public function destroy(CarCategory $carCategory,CarModel $carModel)
     {
-        //
+        $carModel->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

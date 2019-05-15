@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\CarCategory;
+use App\Http\Requests\CarCategoryRequest;
 use App\Http\Resources\CarCategory\CarCategoryCollection;
 use Illuminate\Http\Request;
 
@@ -13,6 +15,10 @@ class CarCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+
     public function index()
     {
         return CarCategoryCollection::collection(CarCategory::paginate(7));
@@ -34,9 +40,12 @@ class CarCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CarCategoryRequest $request)
     {
-        //
+        $car_category = new CarCategory;
+        $car_category->name = $request->name;
+        $car_category->save();
+        return response(['data' => new CarCategoryCollection($car_category)],Response::HTTP_CREATED);
     }
 
     /**
@@ -68,9 +77,10 @@ class CarCategoryController extends Controller
      * @param  \App\Model\CarCategory  $carCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CarCategory $carCategory)
+    public function update(CarCategoryRequest $request, CarCategory $carCategory)
     {
-        //
+        $carCategory->update($request->all());
+        return response(['data' => new CarCategoryCollection($carCategory)],Response::HTTP_CREATED);
     }
 
     /**
@@ -81,6 +91,7 @@ class CarCategoryController extends Controller
      */
     public function destroy(CarCategory $carCategory)
     {
-        //
+        $carCategory->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
