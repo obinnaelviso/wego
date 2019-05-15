@@ -17,7 +17,7 @@ class CarCategoryCollection extends Resource
         return [
             'name' => $this->name,
             'href' => [
-                'car-models' => route('car-models.index',$this->id),
+                'car_models' => route('car-models.index',$this->id),
             ]
         ];
     }

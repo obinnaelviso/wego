@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\ExtraHour;
+use App\Http\Resources\ExtraHour\ExtraHourCollection;
+use App\Http\Resources\ExtraHour\ExtraHourResource;
 use Illuminate\Http\Request;
 
 class ExtraHourController extends Controller
@@ -14,7 +16,7 @@ class ExtraHourController extends Controller
      */
     public function index()
     {
-        //
+        return ExtraHourCollection::collection(ExtraHour::paginate(7));
     }
 
     /**
@@ -46,7 +48,7 @@ class ExtraHourController extends Controller
      */
     public function show(ExtraHour $extraHour)
     {
-        //
+        return new ExtraHourResource($extraHour);
     }
 
     /**

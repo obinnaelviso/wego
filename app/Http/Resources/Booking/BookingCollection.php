@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Booking;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\Resource;
 
-class BookingCollection extends ResourceCollection
+class BookingCollection extends Resource
 {
     /**
      * Transform the resource collection into an array.
@@ -14,6 +14,14 @@ class BookingCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'customer_name' =>$this->customer->first_name.' '.$this->customer->last_name,
+            'date' => $this->time,
+            'cost' => $this->cost,
+            'duration' => $this->booking_time->duration,
+            'href' => [
+                'customer_booking' => route('bookings.index', $this->customer->id)
+            ]
+        ];
     }
 }

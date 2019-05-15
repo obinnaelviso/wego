@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\Car;
+use App\Http\Resources\Car\CarCollection;
+use App\Http\Resources\Car\CarResource;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -14,7 +16,7 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        return CarCollection::collection(Car::paginate(7));
     }
 
     /**
@@ -46,7 +48,7 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
-        //
+        return new CarResource($car);
     }
 
     /**

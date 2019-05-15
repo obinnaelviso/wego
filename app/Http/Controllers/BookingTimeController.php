@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\BookingTime;
+use App\Http\Resources\BookingTime\BookingTimeCollection;
 use Illuminate\Http\Request;
 
 class BookingTimeController extends Controller
@@ -14,7 +15,7 @@ class BookingTimeController extends Controller
      */
     public function index()
     {
-        //
+        return BookingTimeCollection::collection(BookingTime::all());
     }
 
     /**

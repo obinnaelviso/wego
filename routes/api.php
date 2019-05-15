@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Booking\BookingResource;
+use App\Http\Resources\Booking\BookingCollection;
 use App\Model\Booking;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -29,7 +29,7 @@ Route::group(['prefix'=>'customers'], function() {
 
 // Booking index rout
 Route::get('/bookings', function () {
-    return BookingResource::collection(Booking::all());
+    return BookingCollection::collection(Booking::paginate(7));
 });
 
 // Booking Time Routes
