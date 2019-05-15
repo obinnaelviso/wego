@@ -13,7 +13,7 @@ $factory->define(Review::class, function (Faker $faker) {
         	return Customer::all()->random();
         },
         'booking_id' => function() {
-        	return Booking::all()->random();
+            return Booking::all()->random();
         },
         'review' => $faker->paragraph,
         'star' => $faker->numberBetween(0,5)

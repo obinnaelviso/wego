@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(BookingTime::class, function (Faker $faker) {
     return [
         'name' => $faker->randomElement($array = array ('Full Day','Half Day')),
-        'duration' => $faker->randomElement($array = array (30,60)),
+        'duration' => $faker->randomElement($array = array (5,10)),
     ];
 });

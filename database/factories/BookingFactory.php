@@ -19,7 +19,7 @@ $factory->define(Booking::class, function (Faker $faker) {
         'booking_time_id' => function() {
         	return BookingTime::all()->random();
         },
-        'cost' => $faker->numberBetween(1000,10000),
+        'cost' => $faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 100000),
         'time' => $faker->dateTime,
         'status' => $faker->word,
         'location' => $faker->sentence($nbWords = 4, $variableNbWords = true),

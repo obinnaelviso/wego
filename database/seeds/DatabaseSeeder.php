@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         factory(App\Model\Car::class,50)->create();
         factory(App\Model\BookingTime::class,2)->create();
         factory(App\Model\Booking::class,200)->create();
-        factory(App\Model\ExtraHour::class,30)->create();
-        factory(App\Model\Review::class,250)->create();
+        factory(App\Model\ExtraHour::class, 150)->create();
+        factory(App\Model\Review::class,100)->create();
     }
 }

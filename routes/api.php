@@ -1,17 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+use App\Http\Resources\Booking\BookingResource;
+use App\Model\Booking;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -36,6 +27,11 @@ Route::group(['prefix'=>'customers'], function() {
 	Route::apiResource('/{customer}/bookings','BookingController');
 });
 
+// Booking index rout
+Route::get('/bookings', function () {
+    return BookingResource::collection(Booking::all());
+});
+
 // Booking Time Routes
 Route::apiResource('/booking-times', 'BookingTimeController');
 
@@ -45,7 +41,5 @@ Route::group(['prefix'=>'customers'], function() {
 });
 
 // Extra Hours Route
-Route::group(['prefix'=>'bookings'], function() {
-	Route::apiResource('/{booking}/extra-hours','ExtraHourController');
-});
+Route::apiResource('/extra-hours', 'ExtraHourController');
 

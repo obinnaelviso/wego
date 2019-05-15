@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\Booking;
+use App\Model\Customer;
+use App\Http\Resources\Booking\BookingResource;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -12,9 +14,9 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Customer $customer)
     {
-        //
+        return BookingResource::collection($customer->bookings);
     }
 
     /**
