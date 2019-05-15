@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\CarCategory;
+use App\Http\Resources\CarCategory\CarCategoryCollection;
 use Illuminate\Http\Request;
 
 class CarCategoryController extends Controller
@@ -14,7 +15,7 @@ class CarCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return CarCategoryCollection::collection(CarCategory::paginate(7));
     }
 
     /**

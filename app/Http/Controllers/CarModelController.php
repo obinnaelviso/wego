@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Model\CarModel;
+use App\Model\CarCategory;
+use App\Http\Resources\CarModel\CarModelResource;
 use Illuminate\Http\Request;
 
 class CarModelController extends Controller
@@ -12,9 +13,9 @@ class CarModelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CarCategory $car_category)
     {
-        //
+        return CarModelResource::collection($car_category->car_models);
     }
 
     /**
