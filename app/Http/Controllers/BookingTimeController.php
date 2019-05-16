@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 
 class BookingTimeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+    
     public function index()
     {
         return BookingTimeCollection::collection(BookingTime::all());

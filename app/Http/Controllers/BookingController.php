@@ -9,11 +9,10 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+    
     public function index(Customer $customer)
     {
         return BookingResource::collection($customer->bookings);
