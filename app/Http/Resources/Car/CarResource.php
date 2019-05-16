@@ -24,7 +24,8 @@ class CarResource extends JsonResource
             'bookings_count' => $this->bookings->count(),
             'discount' => $this->discount,
             'href' => [
-                'car_model' => route('car-models.index', $this->car_model->id)
+                'cars' => route('cars.index',[$this->car_model, $this->car_model->car_category]),
+                'car_model' => route('car-models.index', $this->car_model->car_category->id)
             ]
         ];
     }

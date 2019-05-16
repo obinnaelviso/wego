@@ -12,12 +12,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('/customers', 'CustomerController');
 
 // Car Model Route
-Route::group(['prefix'=>'car-categories'], function() {
+Route::group(['prefix'=>'car-category'], function() {
 	Route::apiResource('/{car_category}/car-models','CarModelController');
 });
 
 // Cars Route
-Route::apiResource('/cars','CarController');
+Route::group(['prefix'=>'car-category'], function() {
+	Route::apiResource('/{car_category}/car-model/{car_model}/cars','CarController');
+});
 
 // Car Category Route
 Route::apiResource('/car-categories','CarCategoryController');

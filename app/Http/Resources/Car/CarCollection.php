@@ -20,7 +20,7 @@ class CarCollection extends Resource
             'price' => $this->price,
             'discount' => $this->discount,
             'href' => [
-                'car' => route('cars.show',$this->id)
+                'car' => route('cars.show',[$this->car_model->car_category, $this->car_model, $this->id])
             ]
         ];
     }

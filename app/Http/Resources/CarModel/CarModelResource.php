@@ -19,7 +19,7 @@ class CarModelResource extends JsonResource
             'category' =>$this->car_category->name,
             'href' => [
                 'car-categories' => route('car-categories.index'),
-                'cars' => route('cars.index')
+                'cars' => route('cars.index',[$this->car_category, $this->id])
             ]
         ];
     }

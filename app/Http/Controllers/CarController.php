@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarRequest;
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\Car;
+use App\Model\CarCategory;
+use App\Model\CarModel;
 use App\Http\Resources\Car\CarCollection;
 use App\Http\Resources\Car\CarResource;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+     public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+
+    public function index(CarCategory $carCategory, CarModel $carModel)
     {
-        return CarCollection::collection(Car::paginate(7));
+        return CarCollection::collection($carModel->cars);
     }
 
     /**
@@ -35,10 +38,19 @@ class CarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CarRequest $request)
     {
-        //
+        // $car = new Car;
+        // $car->name = $request->name;
+        // $car->car_model_id = $request->model;
+        // $car->description = $request->description;
+        // $car->plate_number = $request->password;
+        // $car->stock = $request->stock;
+        // $car->price = $request->price;
+        // $car->save();
+        // return response(['data' => new CustomerResource($customer)],Response::HTTP_CREATED);
     }
+
 
     /**
      * Display the specified resource.
@@ -46,7 +58,7 @@ class CarController extends Controller
      * @param  \App\Model\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function show(Car $car)
+    public function show(CarCategory $carCategory, CarModel $carModel, Car $car)
     {
         return new CarResource($car);
     }
