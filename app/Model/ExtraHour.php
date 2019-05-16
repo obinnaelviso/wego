@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExtraHour extends Model
 {	
+    protected $fillable = ['customer_id','booking_id','cost_perHour', 'hours', 'cost'];	
+
 	public function customer() {
     	return $this->belongsTo(Customer::class);
     }
