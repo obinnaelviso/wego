@@ -24,13 +24,7 @@ class BookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'booking_time_id' => 'required|integer',
-            'car_id' => 'required|integer',
-            'date' => 'required',
-            'cost' => 'required',
-            'status' => 'required|string',
-            'pickup_address' => 'required|string',
-            'google_map_link' => 'required|string'
+            //
         ];
     }
 }

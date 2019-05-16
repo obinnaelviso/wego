@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BookingTimeRequest;
-use Symfony\Component\HttpFoundation\Response;
 use App\Model\BookingTime;
 use App\Http\Resources\BookingTime\BookingTimeCollection;
 use Illuminate\Http\Request;
@@ -36,11 +34,9 @@ class BookingTimeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookingTimeRequest $request)
+    public function store(Request $request)
     {
-        $booking_time = new BookingTime($request->all());
-        $booking_time->save();
-        return response(['data' => new BookingTimeCollection($booking_time)],Response::HTTP_CREATED);
+        //
     }
 
     /**
@@ -74,8 +70,7 @@ class BookingTimeController extends Controller
      */
     public function update(Request $request, BookingTime $bookingTime)
     {
-        $bookingTime->update($request->all());
-        return response(['data' => new BookingTimeCollection($bookingTime)],Response::HTTP_CREATED);
+        //
     }
 
     /**
@@ -86,7 +81,6 @@ class BookingTimeController extends Controller
      */
     public function destroy(BookingTime $bookingTime)
     {
-        $bookingTime->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        //
     }
 }

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReviewRequest;
-use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Review\ReviewResource;
 use App\Model\Review;
 use App\Model\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
 
 class ReviewController extends Controller
 {
@@ -38,18 +35,9 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReviewRequest $request, Customer $customer)
+    public function store(Request $request)
     {
-        $review = new Review;
-        $review->booking_id = $request->booking_id;
-        $review->review = $request->comment;
-        $review->star = $request->ratings;
-        // Temp. disable foreign key check to insert car_id and booking_time_id
-        Schema::disableForeignKeyConstraints();
-        $customer->reviews()->save($review);
-        Schema::enableForeignKeyConstraints();
-        // Enable back after performing operations
-        return response(['data' => new ReviewResource($review)],Response::HTTP_CREATED);
+        //
     }
 
     /**
@@ -58,9 +46,9 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer, Review $review)
+    public function show(Review $review)
     {
-        return new ReviewResource($review);
+        //
     }
 
     /**
@@ -81,14 +69,9 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer, Review $review)
+    public function update(Request $request, Review $review)
     {
-        $request['review'] = $request->comment;
-        $request['star'] = $request->ratings;
-        unset($request['comment']);
-        unset($request['ratings']);
-        $review->update($request->all());
-        return response(['data' => new ReviewResource($review)],Response::HTTP_CREATED);
+        //
     }
 
     /**
@@ -97,9 +80,8 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer, Review $review)
+    public function destroy(Review $review)
     {
-        $review->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        //
     }
 }
