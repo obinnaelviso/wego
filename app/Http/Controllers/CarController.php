@@ -38,17 +38,17 @@ class CarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CarRequest $request)
+    public function store(CarRequest $request, CarCategory $car_category, CarModel $car_model)
     {
-        // $car = new Car;
-        // $car->name = $request->name;
-        // $car->car_model_id = $request->model;
-        // $car->description = $request->description;
-        // $car->plate_number = $request->password;
-        // $car->stock = $request->stock;
-        // $car->price = $request->price;
-        // $car->save();
-        // return response(['data' => new CustomerResource($customer)],Response::HTTP_CREATED);
+        $car = new Car;
+        $car->name = $request->name;
+        $car->description = $request->description;
+        $car->discount = $request->discount;
+        $car->plate_number = $request->plate_numbe;
+        $car->stock = $request->stock;
+        $car->price = $request->price;
+        $car_model->cars()->save($car);
+        return response(['data' => new CarResource($car)],Response::HTTP_CREATED);
     }
 
 
@@ -81,9 +81,10 @@ class CarController extends Controller
      * @param  \App\Model\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Car $car)
+    public function update(Request $request, CarCategory $car_category, CarModel $car_model, Car $car)
     {
-        //
+        $car->update($request->all());
+        return response(['data' => new CarResource($car)],Response::HTTP_CREATED);
     }
 
     /**
@@ -92,8 +93,9 @@ class CarController extends Controller
      * @param  \App\Model\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Car $car)
+    public function destroy(CarCategory $carCategory,CarModel $carModel, Car $car)
     {
-        //
+        $car->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
