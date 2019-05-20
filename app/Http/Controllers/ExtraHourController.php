@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExtraHourRequest;
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\ExtraHour;
 use App\Http\Resources\ExtraHour\ExtraHourCollection;
 use App\Http\Resources\ExtraHour\ExtraHourResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class ExtraHourController extends Controller
 {
@@ -18,69 +21,36 @@ class ExtraHourController extends Controller
         return ExtraHourCollection::collection(ExtraHour::paginate(7));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    // add extra hour 
+    public function add(ExtraHourRequest $request)
     {
-        //
+        $extraHour = new ExtraHour;
+        $extraHour->customer_id = $request->customer_id;
+        $extraHour->booking_id = $request->booking_id;
+        $extraHour->cost_perHour = $request->cost_perHour;
+        $extraHour->hours = $request->hours;
+        $extraHour->cost = $request->cost;
+        Schema::disableForeignKeyConstraints();
+        $extraHour->save();
+        Schema::enableForeignKeyConstraints();
+        return response(['data' => new ExtraHourResource($extraHour)],Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\ExtraHour  $extraHour
-     * @return \Illuminate\Http\Response
-     */
+    // Show a particular extra hour
     public function show(ExtraHour $extraHour)
     {
         return new ExtraHourResource($extraHour);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\ExtraHour  $extraHour
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ExtraHour $extraHour)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\ExtraHour  $extraHour
-     * @return \Illuminate\Http\Response
-     */
+    
+    // update details of extra hour
     public function update(Request $request, ExtraHour $extraHour)
     {
-        //
+        $extraHour->update($request->all());
+        return response(['data' => new ExtraHourResource($extraHour)],Response::HTTP_CREATED);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\ExtraHour  $extraHour
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ExtraHour $extraHour)
-    {
-        //
-    }
+    
+    // public function destroy(ExtraHour $extraHour)
+    // {
+    //     //
+    // }
 }

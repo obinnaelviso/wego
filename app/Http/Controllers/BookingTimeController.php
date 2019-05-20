@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookingTimeRequest;
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\BookingTime;
 use App\Http\Resources\BookingTime\BookingTimeCollection;
 use Illuminate\Http\Request;
@@ -12,74 +14,31 @@ class BookingTimeController extends Controller
         $this->middleware('auth:api')->except('index','show');
     }
     
+    // Show all booking times
     public function index()
     {
         return BookingTimeCollection::collection(BookingTime::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    // Add Booking time
+    public function add(BookingTimeRequest $request)
     {
-        //
+        $booking_time = new BookingTime($request->all());
+        $booking_time->save();
+        return response(['data' => new BookingTimeCollection($booking_time)],Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    // Update booking time
+   public function update(Request $request, BookingTime $bookingTime)
     {
-        //
+        $bookingTime->update($request->all());
+        return response(['data' => new BookingTimeCollection($bookingTime)],Response::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\BookingTime  $bookingTime
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BookingTime $bookingTime)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\BookingTime  $bookingTime
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BookingTime $bookingTime)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\BookingTime  $bookingTime
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, BookingTime $bookingTime)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\BookingTime  $bookingTime
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(BookingTime $bookingTime)
-    {
-        //
-    }
+    // Delete booking time
+    // public function destroy(BookingTime $bookingTime)
+    // {
+    //     $bookingTime->delete();
+    //     return response(null, Response::HTTP_NO_CONTENT);
+    // }
 }

@@ -19,7 +19,7 @@ class CustomerCollection extends Resource
             'gender' => $this->gender,
             'email' => $this->email,
             'href' => [
-                'customer' => route('customers.show',$this->id),
+                'customer' => route('customer.show',$this->id),
             ]
         ];
     }
