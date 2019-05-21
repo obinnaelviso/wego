@@ -21,6 +21,8 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('gender');
             $table->string('phone_number');
+            $table->integer('points');
+            $table->string('account_status');
             $table->rememberToken();
             $table->timestamps();
         });

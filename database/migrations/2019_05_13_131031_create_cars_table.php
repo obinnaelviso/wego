@@ -18,11 +18,12 @@ class CreateCarsTable extends Migration
             $table->unsignedBigInteger('car_model_id');
             $table->foreign('car_model_id')->references('id')->on('car_models')->onDelete('cascade');
             $table->string('name');
-            $table->text('description');
             $table->integer('stock');
             $table->integer('price');
             $table->string('plate_number'); 
-            $table->integer('discount');
+            $table->integer('booking_percent');
+            $table->integer('year');
+            $table->string('colour');
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@ $factory->define(Booking::class, function (Faker $faker) {
         'time' => $faker->dateTime,
         'status' => $faker->word,
         'location' => $faker->sentence($nbWords = 4, $variableNbWords = true),
-        'location_link' => $faker->url
+        'location_link' => $faker->url,
+        'points' => $faker->randomDigit
     ];
 });

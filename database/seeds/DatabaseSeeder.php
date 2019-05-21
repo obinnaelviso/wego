@@ -12,14 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        factory(App\Model\Customer::class,50)->create();
-        factory(App\Model\CarCategory::class,5)->create();
-        factory(App\Model\Admin::class,10)->create();
-        factory(App\Model\CarModel::class,10)->create();
-        factory(App\Model\Car::class,50)->create();
-        factory(App\Model\BookingTime::class,2)->create();
-        factory(App\Model\Booking::class,200)->create();
+        factory(App\Model\Customer::class, 50)->create();
+        factory(App\Model\CarCategory::class, 5)->create();
+        factory(App\Model\Admin::class, 10)->create();
+        factory(App\Model\CarModel::class, 10)->create();
+        factory(App\Model\Car::class, 50)->create();
+        factory(App\Model\BookingTime::class, 2)->create();
+        factory(App\Model\Booking::class, 200)->create();
         factory(App\Model\ExtraHour::class, 150)->create();
-        factory(App\Model\Review::class,100)->create();
+        factory(App\Model\Review::class, 100)->create();
+        factory(App\Model\Notification::class, 100)->create();
+        factory(App\Model\Voucher::class, 50)->create();
     }
 }

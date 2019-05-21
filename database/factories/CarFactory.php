@@ -12,10 +12,12 @@ $factory->define(Car::class, function (Faker $faker) {
         	return CarModel::all()->random();
         },
         'name' => $faker->word,
-        'description' => $faker->paragraph,
         'stock' => $faker->randomDigit,
         'price' => $faker->numberBetween(1000,30000),
         'plate_number' => $faker->bothify('???#####'),
-        'discount' => $faker->numberBetween(2,50)
+        'booking_percent' => $faker->numberBetween(2,50),
+        'year' => $faker->year($max = 'now'),
+        'colour' => $faker->colorName
+
     ];
 });
