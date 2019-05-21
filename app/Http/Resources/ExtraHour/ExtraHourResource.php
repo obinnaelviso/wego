@@ -15,13 +15,13 @@ class ExtraHourResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'customer' => $this->customer->first_name.' '.$this->customer->last_name,
+            // 'customer' => $this->customer->first_name.' '.$this->customer->last_name,
             'time' => $this->booking->time,
             'cost_perHour' => $this->cost_perHour,
             'hours' => $this->hours,
             'cost' => $this->cost,
             'href' => [
-                'extra_hour' => route('extra-hours.index')
+                'all_extra_hours' => route('extra-hours.index')
             ]
         ];
     }

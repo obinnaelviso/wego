@@ -25,8 +25,8 @@ class Booking extends Model
     	return $this->belongsTo(BookingTime::class);
     }
 
-    public function extra_hour() {
-    	return $this->hasOne(ExtraHour::class);
+    public function extra_hours() {
+    	return $this->hasMany(ExtraHour::class);
     }
 
     public function review() {

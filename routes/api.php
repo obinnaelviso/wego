@@ -60,10 +60,18 @@ Route::group(['prefix'=>'customers'], function() {
 	Route::put('/{customer}/reviews/{review}','ReviewController@update');
 });
 
-// Extra Hours Route
-// Route::apiResource('/extra-hours', 'ExtraHourController');
+// -----------------------------{::::: Extra Hours Route :::::}----------------------------- //
+// Show all extra-hours
 Route::get('/extra-hours', 'ExtraHourController@index')->name('extra-hours.index');
-Route::get('/extra-hours/{extra_hour}', 'ExtraHourController@show')->name('extra-hours.show');
-Route::post('/extra-hours', 'ExtraHourController@add');
-Route::put('/extra-hours/{extra_hour}', 'ExtraHourController@update');
+
+// Show all extra-hours by customer id
+Route::get('/customers/{customer}/extra-hours', 'ExtraHourController@show_customer')->name('extra-hour.show_customer');
+
+Route::group(['prefix'=>'customers/{customer}/bookings/{booking}'], function() {
+	// Show all extra-hours for a customer with a particular booking
+	Route::get('/extra-hours', 'ExtraHourController@show_customer_booking');
+	Route::get('/extra-hours/{extra_hour}', 'ExtraHourController@show')->name('extra-hours.show');
+	Route::post('/extra-hours', 'ExtraHourController@add');
+	Route::put('/extra-hours/{extra_hour}', 'ExtraHourController@update');
+});
 

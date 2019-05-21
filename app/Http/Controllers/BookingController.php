@@ -28,12 +28,14 @@ class BookingController extends Controller
     {
         $booking = new Booking;
         $booking->car_id = $request->car_id;
-        $booking->booking_time_id = $request->pickup_address;
-        $booking->date = date('Y-m-d H:i:s');
-        $booking->cost = $request->cost;
-        $booking->status = $request->status;
-        $booking->location = $request->location;
-        $booking->location_link = $request->location_link;
+        $booking->booking_time_id = $request->booking_time_id;
+        // $booking->date = date('Y-m-d H:i:s');
+        $booking->time = $request->date;
+        $booking->cost = $request->total_cost;
+        $booking->status = $request->booking_stat;
+        $booking->location = $request->pickup_address;
+        $booking->location_link = $request->google_map_link;
+        $booking->points = $request->booking_points;
         // Temp. disable foreign key check to insert car_id and booking_time_id
         Schema::disableForeignKeyConstraints();
         $customer->bookings()->save($booking);

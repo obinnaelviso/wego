@@ -19,7 +19,7 @@ class ExtraHourCollection extends Resource
             'time' => $this->created_at,
             'hours' => $this->hours,
             'href' => [
-                'extra_hour' => route('extra-hours.show',$this->id)
+                'extra_hour' => route('extra-hours.show', [$this->customer->id, $this->booking->id, $this->id])
             ]
         ];
     }
