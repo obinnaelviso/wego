@@ -9,7 +9,6 @@ $factory->define(Voucher::class, function (Faker $faker) {
     return [
         'voucher_id' => $faker->bothify('???#####'),
         'value' => $faker->numberBetween(2,100),
-        'status' => $faker->word,
         'count' => $faker->randomDigit,
         'stock' => $faker->randomDigit,
         'start_date' => $faker->dateTime,

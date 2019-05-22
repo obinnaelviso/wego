@@ -7,11 +7,16 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\Review\ReviewResource;
 use App\Model\Review;
 use App\Model\Customer;
+use App\Model\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
 class ReviewController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+    
     // Show all reviews
     public function index(Customer $customer)
     {
@@ -19,28 +24,27 @@ class ReviewController extends Controller
     }
 
     // add review 
-    public function add(ReviewRequest $request, Customer $customer)
+    public function add(ReviewRequest $request, Customer $customer, Booking $booking)
     {
         $review = new Review;
-        $review->booking_id = $request->booking_id;
+        $review->booking_id = $booking->id;
         $review->review = $request->comment;
         $review->star = $request->ratings;
-        // Temp. disable foreign key check to insert car_id and booking_time_id
-        Schema::disableForeignKeyConstraints();
+        $review->status = $request->status;
+        // Save
         $customer->reviews()->save($review);
-        Schema::enableForeignKeyConstraints();
         // Enable back after performing operations
         return response(['data' => new ReviewResource($review)],Response::HTTP_CREATED);
     }
 
    // show a review
- public function show(Customer $customer, Review $review)
+ public function show(Customer $customer, Booking $booking, Review $review)
     {
         return new ReviewResource($review);
     }
 
     // update a review
-    public function update(Request $request, Customer $customer, Review $review)
+    public function update(Request $request, Customer $customer, Booking $booking, Review $review)
     {
         $request['review'] = $request->comment;
         $request['star'] = $request->ratings;
@@ -51,7 +55,7 @@ class ReviewController extends Controller
     }
 
     // remove review
-    public function remove(Review $review)
+    public function remove(Customer $customer, Booking $booking, Review $review)
     {
         //
     }

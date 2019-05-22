@@ -24,11 +24,11 @@ class ExtraHourRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required|integer',
-            'booking_id' => 'required|integer',
-            'cost_perHour' => 'required',
-            'hours' => 'required|integer',
-            'cost' => 'required'
+            // 'customer_id' => 'required|integer',
+            // 'booking_id' => 'required|integer',
+            'cost_per_hr' => 'required',
+            'total_hours' => 'required|integer',
+            // 'total_cost' => 'required'
         ];
     }
 }

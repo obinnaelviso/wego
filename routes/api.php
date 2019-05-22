@@ -22,10 +22,10 @@ Route::group(['prefix'=>'car-category'], function() {
 });
 
 // Cars Route
-Route::group(['prefix'=>'car-category'], function() {
-	Route::get('/{car_category}/car-model/{car_model}/cars','CarController@index')->name('cars.index');
-	Route::get('/{car_category}/car-model/{car_model}/cars/{car}','CarController@show')->name('cars.show');
-	Route::post('/{car_category}/car-model/{car_model}/cars','CarController@add');
+Route::group(['prefix'=>'car-category/{car_category}/car-model/{car_model}'], function() {
+	Route::get('/cars','CarController@index')->name('cars.index');
+	Route::get('/cars/{car}','CarController@show')->name('cars.show');
+	Route::post('/cars','CarController@add');
 });
 
 // Car Category Route
@@ -34,10 +34,10 @@ Route::post('/car-categories/','CarCategoryController@add');
 Route::put('/car-categories/{car_category}','CarCategoryController@update');
 
 // Booking Routes
-Route::group(['prefix'=>'customers'], function() {
-	Route::get('/{customer}/bookings','BookingController@index')->name('bookings.index');
-	Route::post('/{customer}/bookings/','BookingController@add');
-	Route::put('/{customer}/bookings/{booking}','BookingController@update');
+Route::group(['prefix'=>'customers/{customer}'], function() {
+	Route::get('/bookings','BookingController@index')->name('bookings.index');
+	Route::post('/bookings/','BookingController@add');
+	Route::put('/bookings/{booking}','BookingController@update');
 });
 Route::get('/bookings', function () { 
     return BookingCollection::collection(Booking::paginate(7));
@@ -49,15 +49,15 @@ Route::get('/booking-times', 'BookingTimeController@index');
 Route::post('/booking-times', 'BookingTimeController@add');
 Route::put('/booking-times/{booking_time}', 'BookingTimeController@update');
 
-// Review Routes
+// -----------------------------{::::: Reviews Route :::::}----------------------------- //
 // Route::group(['prefix'=>'customers'], function() {
 // 	Route::apiResource('/{customer}/reviews','ReviewController');
 // });
-Route::group(['prefix'=>'customers'], function() {
-	Route::get('/{customer}/reviews','ReviewController@index');
-	Route::get('/{customer}/reviews/{review}','ReviewController@show');
-	Route::post('/{customer}/reviews','ReviewController@add');
-	Route::put('/{customer}/reviews/{review}','ReviewController@update');
+Route::get('customers/{customer}/reviews','ReviewController@index')->name('reviews.index');
+Route::group(['prefix'=>'customers/{customer}/bookings/{booking}'], function() {
+	Route::get('/reviews/{review}','ReviewController@show');
+	Route::post('/reviews','ReviewController@add');
+	Route::put('/reviews/{review}','ReviewController@update');
 });
 
 // -----------------------------{::::: Extra Hours Route :::::}----------------------------- //
@@ -75,3 +75,11 @@ Route::group(['prefix'=>'customers/{customer}/bookings/{booking}'], function() {
 	Route::put('/extra-hours/{extra_hour}', 'ExtraHourController@update');
 });
 
+// -----------------------------{::::: Notifications Route :::::}----------------------------- //
+Route::get('/notifications','NotificationController@index')->name('notifications.index');
+Route::group(['prefix'=>'customers/{customer}'], function() {
+	Route::get('/notifications','NotificationController@customer_notifications')->name('notifications.customer-notifications');
+	Route::get('/notifications/{notification}','NotificationController@show')->name('notifications.show');
+	Route::post('/notifications','NotificationController@add');
+	Route::put('/notifications/{notification}','NotificationController@update');
+});

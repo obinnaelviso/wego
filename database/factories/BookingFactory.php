@@ -21,9 +21,8 @@ $factory->define(Booking::class, function (Faker $faker) {
         },
         'cost' => $faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 100000),
         'time' => $faker->dateTime,
-        'status' => $faker->word,
         'location' => $faker->sentence($nbWords = 4, $variableNbWords = true),
         'location_link' => $faker->url,
-        'points' => $faker->randomDigit
+        'pts' => $faker->randomDigit
     ];
 });

@@ -5,6 +5,7 @@ namespace App\Model;
 use App\Model\Booking;
 use App\Model\Review;
 use App\Model\ExtraHour;
+use App\Model\Notification;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
@@ -23,6 +24,10 @@ class Customer extends Model
 
     public function extra_hours() {
     	return $this->hasMany(ExtraHour::class);
+    }
+
+    public function notifications() {
+        return $this->hasMany(Notification::class);
     }
 
 }

@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         factory(App\Model\Booking::class, 200)->create();
         factory(App\Model\ExtraHour::class, 150)->create();
         factory(App\Model\Review::class, 100)->create();
-        factory(App\Model\Notification::class, 100)->create();
+        factory(App\Model\NotificationType::class, 10)->create();
+        factory(App\Model\Notification::class, 150)->create();
         factory(App\Model\Voucher::class, 50)->create();
     }
 }

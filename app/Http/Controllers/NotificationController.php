@@ -3,82 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Model\Notification;
+use App\Model\Customer;
+use App\Http\Requests\NotificationRequest;
+use App\Http\Resources\Notification\NotificationCollection;
+use App\Http\Resources\Notification\NotificationResource;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+    
     public function index()
     {
-        //
+        return NotificationCollection::collection(Notification::paginate(7));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function customer_notifications(Customer $customer)
     {
-        //
+        return NotificationCollection::collection($customer->notifications()->paginate(5));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function add(NotificationRequest $request, Customer $customer)
     {
-        //
+        $notification = new Notification;
+        $notification->status = 'soft';
+        $notification->description = $request->message;
+        $notification->type = $request->type;
+        // Save
+        $customer->notifications()->save($notification);
+        return response(['data' => new NotificationResource($notification)],Response::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Notification  $notification
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Notification $notification)
+   // Display full notification details
+    public function show(Customer $customer, Notification $notification)
     {
-        //
+        return new NotificationResource($notification);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Notification  $notification
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Notification $notification)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Notification  $notification
-     * @return \Illuminate\Http\Response
-     */
+    // update notifications
     public function update(Request $request, Notification $notification)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Notification  $notification
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Notification $notification)
     {
         //
     }

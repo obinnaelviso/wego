@@ -16,9 +16,11 @@ class CustomerResource extends JsonResource
     {
         return[
             'name' => $this->first_name.' '.$this->last_name,
-            'gender' => $this->gender,
-            'email' => $this->email,
-            'phone_number' => $this->phone_number,
+            'sex' => $this->gender,
+            'email_address' => $this->email,
+            'phone_no' => $this->phone_number,
+            'status' => $this->account_status,
+            'points' => $this->points,
             'bookings_count' => $this->bookings->count(),
             'bookings_total_cost' => $this->bookings->sum('cost'),
             'reviews_count' => $this->reviews->count(),

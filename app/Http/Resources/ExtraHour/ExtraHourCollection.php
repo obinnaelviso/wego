@@ -17,7 +17,7 @@ class ExtraHourCollection extends Resource
         return [
             'customer' => $this->customer->first_name.' '.$this->customer->last_name,
             'time' => $this->created_at,
-            'hours' => $this->hours,
+            'total_hours' => $this->hours,
             'href' => [
                 'extra_hour' => route('extra-hours.show', [$this->customer->id, $this->booking->id, $this->id])
             ]

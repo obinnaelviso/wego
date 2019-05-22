@@ -16,10 +16,10 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->unsignedBigInteger('notification_types_id');
             $table->unsignedBigInteger('customer_id');
-            $table->string('type');
-            $table->string('status');
-            $table->text('description');
+            $table->string('status')->default('new');
+            $table->text('msg');
             
             $table->foreign('customer_id')
                   ->references('id')

@@ -16,7 +16,6 @@ $factory->define(Review::class, function (Faker $faker) {
             return Booking::all()->random();
         },
         'review' => $faker->paragraph,
-        'star' => $faker->numberBetween(0,5),
-        'status' => $faker->word
+        'star' => $faker->numberBetween(0,5)
     ];
 });

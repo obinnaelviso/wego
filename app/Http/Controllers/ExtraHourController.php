@@ -38,14 +38,12 @@ class ExtraHourController extends Controller
     public function add(ExtraHourRequest $request, Customer $customer, Booking $booking)
     {
         $extraHour = new ExtraHour;
-        $extraHour->customer_id = $request->customer_id;
-        $extraHour->booking_id = $request->booking_id;
-        $extraHour->cost_perHour = $request->cost_perHour;
-        $extraHour->hours = $request->hours;
-        $extraHour->cost = $request->cost;
-        Schema::disableForeignKeyConstraints();
+        $extraHour->customer_id = $customer->id;
+        $extraHour->booking_id = $booking->id;
+        $extraHour->cost_perHour = $request->cost_per_hr;
+        $extraHour->hours = $request->total_hours;
+        $extraHour->cost = $request->cost_per_hr * $request->total_hours;
         $extraHour->save();
-        Schema::enableForeignKeyConstraints();
         return response(['data' => new ExtraHourResource($extraHour)],Response::HTTP_CREATED);
     }
 

@@ -25,7 +25,8 @@ class CarModelController extends Controller
     // Add a car model to the database
     public function add(CarModelRequest $request, CarCategory $carCategory)
     {
-        $car_model = new CarModel($request->all());
+        $car_model = new CarModel;
+        $car_model->name = $request->model_name;
         $carCategory->car_models()->save($car_model);
         return response(['data' => new CarModelResource($car_model)],Response::HTTP_CREATED);
     }

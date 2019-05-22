@@ -16,8 +16,9 @@ class CustomerCollection extends Resource
     {
         return [
             'name' => $this->first_name.' '.$this->last_name,
-            'gender' => $this->gender,
-            'email' => $this->email,
+            'sex' => $this->gender,
+            'email_address' => $this->email,
+            'points' => $this->points,
             'href' => [
                 'customer' => route('customer.show',$this->id),
             ]
