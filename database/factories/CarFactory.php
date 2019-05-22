@@ -17,7 +17,7 @@ $factory->define(Car::class, function (Faker $faker) {
         'plate_number' => $faker->bothify('???#####'),
         'booking_percent' => $faker->numberBetween(2,50),
         'year' => $faker->year($max = 'now'),
-        'colour' => $faker->colorName
-
+        'colour' => $faker->colorName,
+        'img_path' => $faker->bothify('/???/??/???.png')
     ];
 });

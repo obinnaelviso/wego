@@ -15,8 +15,8 @@ class BookingTimeCollection extends Resource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'duration' => $this->duration
+            'booking_type' => $this->name,
+            'booking_hours' => $this->duration
         ];
     }
 }

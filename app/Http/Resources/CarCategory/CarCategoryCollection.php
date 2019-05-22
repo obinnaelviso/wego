@@ -15,7 +15,7 @@ class CarCategoryCollection extends Resource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
+            'category_name' => $this->name,
             'href' => [
                 'car_models' => route('car-models.index',$this->id),
             ]

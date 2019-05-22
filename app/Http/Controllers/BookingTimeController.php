@@ -23,7 +23,9 @@ class BookingTimeController extends Controller
     // Add Booking time
     public function add(BookingTimeRequest $request)
     {
-        $booking_time = new BookingTime($request->all());
+        $booking_time = new BookingTime;
+        $booking_time->name = $request->booking_type;
+        $booking_time->duration = $request->booking_hours;
         $booking_time->save();
         return response(['data' => new BookingTimeCollection($booking_time)],Response::HTTP_CREATED);
     }

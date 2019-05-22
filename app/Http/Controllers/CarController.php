@@ -26,12 +26,13 @@ class CarController extends Controller
     public function add(CarRequest $request, CarCategory $car_category, CarModel $car_model)
     {
         $car = new Car;
-        $car->name = $request->name;
-        $car->description = $request->description;
-        $car->discount = $request->discount;
-        $car->plate_number = $request->plate_number;
-        $car->stock = $request->stock;
-        $car->price = $request->price;
+        $car->name = $request->car_name;
+        $car->booking_percent = $request->percentage;
+        $car->plate_number = $request->plate_no;
+        $car->stock = $request->in_stock;
+        $car->price = $request->cost;
+        $car->colour = $request->color;
+        $car->year = $request->car_year;
         $car_model->cars()->save($car);
         return response(['data' => new CarResource($car)],Response::HTTP_CREATED);
     }

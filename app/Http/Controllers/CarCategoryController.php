@@ -25,7 +25,7 @@ class CarCategoryController extends Controller
     public function add(CarCategoryRequest $request)
     {
         $car_category = new CarCategory;
-        $car_category->name = $request->name;
+        $car_category->name = $request->category_name;
         $car_category->save();
         return response(['data' => new CarCategoryCollection($car_category)],Response::HTTP_CREATED);
     }

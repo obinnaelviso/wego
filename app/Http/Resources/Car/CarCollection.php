@@ -15,10 +15,10 @@ class CarCollection extends Resource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'model' => $this->car_model->name,
-            'price' => $this->price,
-            'discount' => $this->discount,
+            'car_name' => $this->name,
+            'car_model' => $this->car_model->name,
+            'cost' => $this->price,
+            'percentage' => $this->booking_percent,
             'href' => [
                 'car' => route('cars.show',[$this->car_model->car_category, $this->car_model, $this->id])
             ]

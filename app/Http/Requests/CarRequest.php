@@ -24,12 +24,13 @@ class CarRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:car_models',
-            'description' => 'required|string',
-            'plate_number' => 'required|string',
-            'stock' => 'required|integer',
-            'price' => 'required|integer',
-            'discount' => 'required|integer'
+            'car_name' => 'required|max:255|unique:cars,name',
+            'color' => 'required|string',
+            'plate_no' => 'required|string',
+            'in_stock' => 'required|integer',
+            'cost' => 'required|integer',
+            'percentage' => 'required|integer',
+            'car_year' => 'required|integer'
         ];
     }
 }

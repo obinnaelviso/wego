@@ -24,7 +24,7 @@ class CarCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:car_categories',
+            'category_name' => 'required|max:255|unique:car_categories,name',
         ];
     }
 }

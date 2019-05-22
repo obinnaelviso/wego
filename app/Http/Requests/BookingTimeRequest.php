@@ -24,8 +24,8 @@ class BookingTimeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:booking_times',
-            'duration' => 'required|integer'
+            'booking_type' => 'required|max:255|unique:booking_times,name',
+            'booking_hours' => 'required|integer|unique:booking_times,duration'
         ];
     }
 }

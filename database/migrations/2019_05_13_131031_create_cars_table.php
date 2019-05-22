@@ -24,6 +24,7 @@ class CreateCarsTable extends Migration
             $table->integer('booking_percent');
             $table->integer('year');
             $table->string('colour');
+            $table->string('img_path');
             $table->timestamps();
         });
     }
