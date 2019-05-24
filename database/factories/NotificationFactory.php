@@ -12,7 +12,7 @@ $factory->define(Notification::class, function (Faker $faker) {
         'customer_id' => function() {
         	return Customer::all()->random();
         },
-        'notification_types_id' => function() {
+        'notification_type_id' => function() {
         	return NotificationType::all()->random();
         },
         'msg' => $faker->paragraph,

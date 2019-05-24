@@ -76,10 +76,28 @@ Route::group(['prefix'=>'customers/{customer}/bookings/{booking}'], function() {
 });
 
 // -----------------------------{::::: Notifications Route :::::}----------------------------- //
+// Show all notifications
 Route::get('/notifications','NotificationController@index')->name('notifications.index');
-Route::group(['prefix'=>'customers/{customer}'], function() {
+// Show all notifications by their type
+Route::get('/notification-types/{notification_type}/notifications','NotificationController@type')->name('notifications.type');
+// Show all notifications by customer
+Route::group(['prefix'=>'customers/{customer}/notification-types/{notification_type}'], function() {
 	Route::get('/notifications','NotificationController@customer_notifications')->name('notifications.customer-notifications');
 	Route::get('/notifications/{notification}','NotificationController@show')->name('notifications.show');
 	Route::post('/notifications','NotificationController@add');
 	Route::put('/notifications/{notification}','NotificationController@update');
 });
+
+// -----------------------------{::::: Voucher Route :::::}----------------------------- //
+Route::get('/vouchers','VoucherController@index')->name('voucher.index');
+Route::post('/vouchers/','VoucherController@add');
+Route::put('/vouchers/{voucher}','VoucherController@update')->name('voucher.update');
+
+// -----------------------------{::::: Points Route :::::}----------------------------- //
+Route::get('/points','PointController@index')->name('voucher.index');
+Route::post('/points/','PointController@add');
+
+// -----------------------------{::::: Notification Types Route :::::}----------------------------- //
+Route::get('/notification-types','NotificationTypeController@index')->name('notification-types.index');
+Route::post('/notification-types/','NotificationTypeController@add');
+Route::put('/notification-types/{notification-types}','NotificationTypeController@update');

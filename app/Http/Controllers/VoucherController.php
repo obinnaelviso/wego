@@ -1,85 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Resources\Voucher\VoucherResource;
+use App\Http\Requests\VoucherRequest;
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\Voucher;
 use Illuminate\Http\Request;
 
 class VoucherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+
     public function index()
     {
-        //
+        return VoucherResource::collection(Voucher::paginate(7));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add(VoucherRequest $request)
     {
-        //
+        $voucher = new Voucher;
+        $voucher->voucher_id = "GOGO".strtoupper(sha1(time()));
+        $voucher->value = $request->money_value;
+        $voucher->count = $request->used;
+        $voucher->stock = $request->remaining;
+        $voucher->start_date = $request->validity_date;
+        $voucher->end_date = $request->expiry_date;
+        // Save
+        $voucher->save();
+        return response(['data' => new VoucherResource($voucher)],Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(VoucherRequest $request, Voucher $voucher)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Voucher  $voucher
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Voucher $voucher)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Voucher  $voucher
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Voucher $voucher)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Voucher  $voucher
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Voucher $voucher)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Voucher  $voucher
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Voucher $voucher)
-    {
-        //
+        
     }
 }

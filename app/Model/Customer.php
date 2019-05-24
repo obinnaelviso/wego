@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Booking;
 use App\Model\Review;
+use App\Model\Voucher;
 use App\Model\ExtraHour;
 use App\Model\Notification;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,4 @@ class Customer extends Model
     public function notifications() {
         return $this->hasMany(Notification::class);
     }
-
 }

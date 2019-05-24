@@ -17,10 +17,10 @@ class CreateVouchersTable extends Migration
             $table->bigIncrements('id');
             $table->string('voucher_id');
             $table->integer('value');
-            $table->integer('count');
+            $table->integer('count')->default(0);
             $table->integer('stock');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->string('status')->default('inactive');
             $table->timestamps();
         });

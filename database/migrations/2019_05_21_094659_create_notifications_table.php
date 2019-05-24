@@ -16,7 +16,7 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->unsignedBigInteger('notification_types_id');
+            $table->unsignedBigInteger('notification_type_id');
             $table->unsignedBigInteger('customer_id');
             $table->string('status')->default('new');
             $table->text('msg');
@@ -24,6 +24,10 @@ class CreateNotificationsTable extends Migration
             $table->foreign('customer_id')
                   ->references('id')
                   ->on('customers')
+                  ->onDelete('cascade');
+            $table->foreign('notification_type_id')
+                  ->references('id')
+                  ->on('notification_types')
                   ->onDelete('cascade');
         });
     }

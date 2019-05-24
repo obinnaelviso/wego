@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NotificationRequest extends FormRequest
+class PointRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class NotificationRequest extends FormRequest
     public function rules()
     {
         return [
-            'message'=>'required|string|max:255'
+            'rate' => 'required|integer',
+            'version' => 'required|string|unique:points'
         ];
     }
 }

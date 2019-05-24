@@ -1,83 +1,38 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Resources\Point\PointResource;
+use App\Http\Requests\PointRequest;
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\Point;
 use Illuminate\Http\Request;
 
 class PointController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+
     public function index()
     {
-        //
+        return PointResource::collection(Point::paginate(7));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add(PointRequest $request)
     {
-        //
+        $point = new Point;
+        $point->value = $request->rate;
+        $point->version = $request->version;
+        // Save
+        $point->save();
+        return response(['data' => new PointResource($point)], Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Point  $point
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Point $point)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Point  $point
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Point $point)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Point  $point
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Point $point)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Point  $point
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Point $point)
     {
         //

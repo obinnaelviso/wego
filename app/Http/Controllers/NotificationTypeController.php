@@ -2,83 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NotificationTypeRequest;
+use App\Http\Resources\NotificationType\NotificationTypeResource;
+use Symfony\Component\HttpFoundation\Response;
 use App\Model\NotificationType;
 use Illuminate\Http\Request;
 
 class NotificationTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct() {
+        $this->middleware('auth:api')->except('index','show');
+    }
+
     public function index()
     {
-        //
+        return NotificationTypeResource::collection(NotificationType::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add(NotificationTypeRequest $request)
     {
-        //
+        $notif_type = new NotificationType;
+        $notif_type->name = $request->type;
+        //save
+        $notif_type->save();
+        return response(['data'=> new NotificationTypeResource($notif_type)], Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\NotificationType  $notificationType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(NotificationType $notificationType)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\NotificationType  $notificationType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(NotificationType $notificationType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\NotificationType  $notificationType
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, NotificationType $notificationType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\NotificationType  $notificationType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(NotificationType $notificationType)
     {
         //
     }

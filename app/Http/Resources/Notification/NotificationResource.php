@@ -16,11 +16,11 @@ class NotificationResource extends JsonResource
     {
         return [
             'customer_name'=>$this->customer->first_name.' '.$this->customer->last_name,
-            'type'=>$this->type,
-            'message'=>$this->description,
+            'type'=>$this->notification_type->name,
+            'message'=>$this->msg,
             'status'=>$this->status,
             'href' => [
-                'customer_notifications' => route('notifications.customer-notifications', $this->customer->id),
+                'customer_notifications' => route('notifications.customer-notifications', [$this->customer->id, $this->notification_type->id]),
                 'all_notifications' => route('notifications.index')
             ]
         ];
