@@ -56,11 +56,25 @@ class BookingController extends Controller
         $booking->update($request->all());
         return response(['data' => new BookingResource($booking)],Response::HTTP_CREATED);
     }
-    
-    // Delete a booking detail
-    // public function destroy(Customer $customer, Booking $booking)
-    // {
-    //     $booking->delete();
-    //     return response(null, Response::HTTP_NO_CONTENT);
-    // }
+
+    public function action(Customer $customer, Booking $booking, $action)
+    {
+        if($action == "completed") {
+            $booking->status = $action;
+            $customer->pts += $booking->pts;
+            $customer->save();
+            $booking->save();
+            return $action;
+        } else if($action == "cancelled") {
+            $booking->status = $action;
+            $booking->save();
+            return $action;
+        } else if($action == "removed") {
+            $booking->status = $action;
+            $booking->save();
+            return $action;
+        } else {
+            return null;
+        }
+    }
 }

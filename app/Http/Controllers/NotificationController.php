@@ -48,10 +48,21 @@ class NotificationController extends Controller
         return new NotificationResource($notification);
     }
 
-
     // update notifications
-    public function update(Request $request, Notification $notification)
+    public function action(Notification $notification, $action)
     {
-        //
+        if($action == "read") {
+            $notification->status = $action;
+            $notification->save();
+            return "Notification ".$action;
+        } else if($action == "viewed") {
+            $notification->status = $action;
+            $notification->save();
+            return "Notification ".$action;
+        } else if($action == "removed") {
+            $notification->status = $action;
+            $notification->save();
+            return "Notification ".$action;
+        } else return "null";
     }
 }

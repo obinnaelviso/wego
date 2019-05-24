@@ -46,11 +46,11 @@ class ReviewController extends Controller
     // update a review
     public function update(Request $request, Customer $customer, Booking $booking, Review $review)
     {
-        $request['review'] = $request->comment;
-        $request['star'] = $request->ratings;
-        unset($request['comment']);
-        unset($request['ratings']);
-        $review->update($request->all());
+        $review->review = $request->comment;
+        $review->star = $request->ratings;
+        $review->status = "edited";
+        // Save
+        $customer->reviews()->save($review);
         return response(['data' => new ReviewResource($review)],Response::HTTP_CREATED);
     }
 

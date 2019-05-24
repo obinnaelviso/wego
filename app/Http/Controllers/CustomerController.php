@@ -49,9 +49,21 @@ class CustomerController extends Controller
         return response(['data' => new CustomerResource($customer)],Response::HTTP_CREATED);
     }
 
-    // public function destroy(Customer $customer)
-    // {
-    //     $customer->delete();
-    //     return response(null, Response::HTTP_NO_CONTENT);
-    // }
+    public function action(Customer $customer, $action) {
+        if($action == "active") {
+            $customer->account_status = $action;
+            $customer->save();
+            return "Customer Account Status ".$action;
+        } else if($action == "blocked") {
+            $customer->account_status = $action;
+            $customer->save();
+            return "Customer Account Status ".$action;
+        } else if($action == "change-password") {
+            $customer->account_status = $action;
+            $customer->save();
+            return "Customer Account Status ".$action;
+        } else {
+            return null;
+        }
+    }
 }

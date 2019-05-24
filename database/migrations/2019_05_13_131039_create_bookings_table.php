@@ -26,7 +26,7 @@ class CreateBookingsTable extends Migration
             $table->string('status')->default('active');
             $table->string('location');
             $table->string('location_link');
-            $table->string('pts');
+            $table->integer('pts');
             $table->timestamps();
         });
     }
