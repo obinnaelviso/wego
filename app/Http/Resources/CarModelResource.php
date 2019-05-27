@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\CarModel;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,12 +15,8 @@ class CarModelResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
+            'model_name' => $this->name,
             'category' =>$this->car_category->name,
-            'href' => [
-                'car-categories' => route('car-categories.index'),
-                'cars' => route('cars.index',[$this->car_category, $this->id])
-            ]
         ];
     }
 }

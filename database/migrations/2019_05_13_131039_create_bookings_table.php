@@ -23,7 +23,7 @@ class CreateBookingsTable extends Migration
             $table->foreign('booking_time_id')->references('id')->on('booking_times')->onDelete('cascade');
             $table->double('cost');
             $table->dateTime('time');
-            $table->string('status')->default('active');
+            $table->string('status')->default(0);
             $table->string('location');
             $table->string('location_link');
             $table->integer('pts');

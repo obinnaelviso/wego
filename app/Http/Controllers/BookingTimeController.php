@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookingTimeRequest;
 use Symfony\Component\HttpFoundation\Response;
 use App\Model\BookingTime;
-use App\Http\Resources\BookingTime\BookingTimeCollection;
+use App\Http\Resources\BookingTimeResource;
 use Illuminate\Http\Request;
 
 class BookingTimeController extends Controller

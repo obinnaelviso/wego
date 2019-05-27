@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Car;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,11 +23,7 @@ class CarResource extends JsonResource
             'color' => $this->colour,
             'car_year' =>$this->year,
             'bookings_count' => $this->bookings->count(),
-            'percentage' => $this->booking_percent,
-            'href' => [
-                'cars' => route('cars.index',[$this->car_model, $this->car_model->car_category]),
-                'car_model' => route('car-models.index', $this->car_model->car_category->id)
-            ]
+            'percentage' => $this->booking_percent
         ];
     }
 }

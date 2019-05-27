@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $fillable = ['booking_time_id','car_id','time', 'cost', 'status', 'location', 'location_link'];
+    protected $fillable = ['booking_time_id','car_id','time', 'cost', 'status', 'pts', 'location', 'location_link'];
     
     public function customer() {
     	return $this->belongsTo(Customer::class);

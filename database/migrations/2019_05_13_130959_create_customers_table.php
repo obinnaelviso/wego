@@ -22,7 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('gender');
             $table->string('phone_number');
             $table->integer('pts')->default(0);
-            $table->string('account_status')->default('inactive');
+            $table->integer('account_status')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -6,20 +6,30 @@ use App\Http\Requests\CarModelRequest;
 use Symfony\Component\HttpFoundation\Response;
 use App\Model\CarModel;
 use App\Model\CarCategory;
-use App\Http\Resources\CarModel\CarModelResource;
+use App\Http\Resources\CarModelResource;
 use Illuminate\Http\Request;
 
 class CarModelController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth:api')->except('index','show');
+        $this->middleware('auth:api');
     }
 
-    // Shows the list of car models
+    // Shows the all car models
+    public function all()
+    {
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => CarModelResource::collection(CarModel::all())];
+    }
+
+    // Shows the all car models by their category
     public function index(CarCategory $car_category)
     {
-        return CarModelResource::collection($car_category->car_models);
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => CarModelResource::collection($car_category->car_models)];
     }
 
     // Add a car model to the database
@@ -28,26 +38,19 @@ class CarModelController extends Controller
         $car_model = new CarModel;
         $car_model->name = $request->model_name;
         $carCategory->car_models()->save($car_model);
-        return response(['data' => new CarModelResource($car_model)],Response::HTTP_CREATED);
+        return response(['message' => 200, 
+                        'error' => [], 
+                        'data' => new CarModelResource($car_model)],Response::HTTP_OK);
     }
-
-    // // show a particular car model
-    // public function show(CarModel $carModel)
-    // {
-    //     //
-    // }
 
     // Update car model information
     public function update(CarModelRequest $request, CarCategory $carCategory, CarModel $carModel)
     {
-        $carModel->update($request->all());
-        return response(['data' => new CarModelResource($carModel)],Response::HTTP_CREATED);
+        $carModel->name = $request->model_name;
+        $carModel->car_category_id = $carCategory->id;
+        $carModel->save();
+        return response(['message' => 200, 
+                        'error' => [], 
+                        'data' => new CarModelResource($carModel)],Response::HTTP_OK);
     }
-
-    // remove a particular car model
-    // public function destroy(CarCategory $carCategory,CarModel $carModel)
-    // {
-    //     $carModel->delete();
-    //     return response(null, Response::HTTP_NO_CONTENT);
-    // }
 }

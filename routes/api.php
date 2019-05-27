@@ -4,104 +4,109 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Booking\BookingCollection;
 use App\Model\Booking;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->post('/user', function (Request $request) {
     return $request->user();
 });
 
 // -----------------------------{::::: Customer Routes :::::}----------------------------- //
-Route::get('/customers', 'CustomerController@index');
-Route::get('/customers/{customer}', 'CustomerController@show')->name('customer.show');
-Route::post('/customers', 'CustomerController@add');
-Route::put('/customers/{customer}', 'CustomerController@update')->name('customer.update');
-Route::put('/customers/{customer}/{action}', 'CustomerController@action')->name('customer.update');
+Route::post('/customers/get-all', 'CustomerController@index');
+Route::post('/customers/{customer}/show-details', 'CustomerController@show');
+Route::post('/customers/add-new', 'CustomerController@add');
+Route::post('/customers/{customer}/edit-details', 'CustomerController@update');
+Route::post('/customers/{customer}/action/{action}', 'CustomerController@action');
+
 
 // -----------------------------{::::: Car Model Routes :::::}----------------------------- //
-Route::group(['prefix'=>'car-category'], function() {
-	Route::get('/{car_category}/car-models','CarModelController@index')->name('car-models.index');
-	Route::post('/{car_category}/car-models','CarModelController@add');
-	Route::put('/{car_category}/car-models/{car_model}','CarModelController@update');
+Route::post('/car-models/get-all','CarModelController@all');
+Route::group(['prefix'=>'car-categories'], function() {
+	Route::post('/{car_category}/car-models/get-all','CarModelController@index')->name('car-models.index');
+	Route::post('/{car_category}/car-models/add-new','CarModelController@add');
+	Route::post('/{car_category}/car-models/{car_model}/edit-details','CarModelController@update');
 });
 
 // -----------------------------{::::: Cars Routes :::::}----------------------------- //
-Route::group(['prefix'=>'car-category/{car_category}/car-model/{car_model}'], function() {
-	Route::get('/cars','CarController@index')->name('cars.index');
-	Route::get('/cars/{car}','CarController@show')->name('cars.show');
-	Route::post('/cars','CarController@add');
+Route::post('/cars/get-all', 'CarController@all');
+Route::group(['prefix'=>'car-categories/{car_category}/car-models/{car_model}'], function() {
+	Route::post('/cars/get-all','CarController@index');
+	Route::post('/cars/{car}/show-details','CarController@show');
+	Route::post('/cars/{car}/edit-details','CarController@update');
+	// Route::post('/cars/{car}/action/{action}','CarController@action');
+	Route::post('/cars/add-new','CarController@add');
 });
 
 // -----------------------------{::::: Car Category Routes :::::}----------------------------- //
-Route::get('/car-categories','CarCategoryController@index')->name('car-categories.index');
-Route::post('/car-categories/','CarCategoryController@add');
-Route::put('/car-categories/{car_category}','CarCategoryController@update');
+Route::post('/car-categories/get-all','CarCategoryController@index')->name('car-categories.index');
+Route::post('/car-categories/add-new','CarCategoryController@add');
+Route::post('/car-categories/{car_category}/edit-details','CarCategoryController@update');
 
 // -----------------------------{::::: Booking Routes :::::}----------------------------- //
+Route::post('/bookings/get-all', 'BookingController@all');
 Route::group(['prefix'=>'customers/{customer}'], function() {
-	Route::get('/bookings','BookingController@index')->name('bookings.index');
-	Route::post('/bookings/','BookingController@add');
-	Route::put('/bookings/{booking}','BookingController@update');
+	Route::post('/bookings/get-all','BookingController@index')->name('bookings.index');
+	Route::post('/bookings/add-new','BookingController@add');
+	Route::post('/bookings/{booking}/edit-details','BookingController@update');
+	Route::post('/bookings/{booking}/show-details','BookingController@show');
+	Route::post('/bookings/{booking}/{action}','BookingController@action');
 });
-Route::put('/bookings/{booking}/{action}','BookingController@action');
-Route::get('/bookings', function () { 
-    return BookingCollection::collection(Booking::paginate(7));
-}); // Shows all bookings
+
 
 
 // -----------------------------{::::: Booking Time Routes :::::}----------------------------- //
-Route::get('/booking-times', 'BookingTimeController@index');
-Route::post('/booking-times', 'BookingTimeController@add');
-Route::put('/booking-times/{booking_time}', 'BookingTimeController@update');
+Route::post('/booking-times/get-all', 'BookingTimeController@index');
+Route::post('/booking-times/add-new', 'BookingTimeController@add');
+Route::post('/booking-times/{booking_time}/edit-details', 'BookingTimeController@update');
 
 // -----------------------------{::::: Reviews Route :::::}----------------------------- //
 // Route::group(['prefix'=>'customers'], function() {
 // 	Route::apiResource('/{customer}/reviews','ReviewController');
 // });
-Route::get('customers/{customer}/reviews','ReviewController@index')->name('reviews.index');
+Route::post('customers/{customer}/reviews/get-all','ReviewController@index')->name('reviews.index');
 Route::group(['prefix'=>'customers/{customer}/bookings/{booking}'], function() {
-	Route::get('/reviews/{review}','ReviewController@show');
-	Route::post('/reviews','ReviewController@add');
-	Route::put('/reviews/{review}','ReviewController@update');
+	Route::post('/reviews/{review}/show-details','ReviewController@show');
+	Route::post('/reviews/add-new','ReviewController@add');
+	Route::post('/reviews/{review}/edit-details','ReviewController@update');
 });
 
 // -----------------------------{::::: Extra Hours Route :::::}----------------------------- //
 // Show all extra-hours
-Route::get('/extra-hours', 'ExtraHourController@index')->name('extra-hours.index');
+Route::post('/extra-hours/get-all', 'ExtraHourController@index')->name('extra-hours.index');
 
 // Show all extra-hours by customer id
-Route::get('/customers/{customer}/extra-hours', 'ExtraHourController@show_customer')->name('extra-hour.show_customer');
+Route::post('/customers/{customer}/extra-hours/show-customer', 'ExtraHourController@show_customer')->name('extra-hour.show_customer');
 
 Route::group(['prefix'=>'customers/{customer}/bookings/{booking}'], function() {
 	// Show all extra-hours for a customer with a particular booking
-	Route::get('/extra-hours', 'ExtraHourController@show_customer_booking');
-	Route::get('/extra-hours/{extra_hour}', 'ExtraHourController@show')->name('extra-hours.show');
-	Route::post('/extra-hours', 'ExtraHourController@add');
-	Route::put('/extra-hours/{extra_hour}', 'ExtraHourController@update');
+	Route::post('/extra-hours/show-customer-booking', 'ExtraHourController@show_customer_booking');
+	Route::post('/extra-hours/{extra_hour}/show-details', 'ExtraHourController@show')->name('extra-hours.show');
+	Route::post('/extra-hours/add-new', 'ExtraHourController@add');
+	Route::post('/extra-hours/{extra_hour}/edit-details', 'ExtraHourController@update');
 });
 
 // -----------------------------{::::: Notifications Route :::::}----------------------------- //
 // Show all notifications
-Route::get('/notifications','NotificationController@index')->name('notifications.index');
+Route::post('/notifications/get-all','NotificationController@index')->name('notifications.index');
 // Show all notifications by their type
-Route::get('/notification-types/{notification_type}/notifications','NotificationController@type')->name('notifications.type');
+Route::post('/notification-types/{notification_type}/notifications/show-type','NotificationController@type')->name('notifications.type');
 // Show all notifications by customer
 Route::group(['prefix'=>'customers/{customer}/notification-types/{notification_type}'], function() {
-	Route::get('/notifications','NotificationController@customer_notifications')->name('notifications.customer-notifications');
-	Route::get('/notifications/{notification}','NotificationController@show')->name('notifications.show');
-	Route::post('/notifications','NotificationController@add');
+	Route::post('/notifications/show-customer','NotificationController@customer_notifications')->name('notifications.customer-notifications');
+	Route::post('/notifications/{notification}/show-details','NotificationController@show')->name('notifications.show');
+	Route::post('/notifications/add-new','NotificationController@add');
 });
 // Read actions for notifications
-Route::put('/notifications/{notification}/{action}', 'NotificationController@action');
+Route::post('/notifications/{notification}/{action}', 'NotificationController@action');
 
 // -----------------------------{::::: Voucher Route :::::}----------------------------- //
-Route::get('/vouchers','VoucherController@index')->name('voucher.index');
-Route::post('/vouchers/','VoucherController@add');
-Route::put('/vouchers/{voucher}','VoucherController@update')->name('voucher.update');
-Route::put('/vouchers/{voucher}/{action}','VoucherController@action');
+Route::post('/vouchers/get-all','VoucherController@index')->name('voucher.index');
+Route::post('/vouchers/add-new','VoucherController@add');
+Route::post('/vouchers/{voucher}/edit-details','VoucherController@update')->name('voucher.update');
+Route::post('/vouchers/{voucher}/{action}','VoucherController@action');
 
 // -----------------------------{::::: Points Route :::::}----------------------------- //
-Route::get('/points','PointController@index')->name('voucher.index');
-Route::post('/points/','PointController@add');
+Route::post('/points/get-all','PointController@index')->name('voucher.index');
+Route::post('/points/add-new','PointController@add');
 
 // -----------------------------{::::: Notification Types Route :::::}----------------------------- //
-Route::get('/notification-types','NotificationTypeController@index')->name('notification-types.index');
-Route::post('/notification-types/','NotificationTypeController@add');
-Route::put('/notification-types/{notification-types}','NotificationTypeController@update');
+Route::post('/notification-types/get-all','NotificationTypeController@index')->name('notification-types.index');
+Route::post('/notification-types/add-new','NotificationTypeController@add');
+Route::post('/notification-types/{notification-types}/edit-details','NotificationTypeController@update');

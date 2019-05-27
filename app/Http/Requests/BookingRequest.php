@@ -28,9 +28,9 @@ class BookingRequest extends FormRequest
             'car_id' => 'required|integer',
             'date' => 'required',
             'total_cost' => 'required',
-            'booking_points' => 'required|integer',
             'pickup_address' => 'required|string',
-            'google_map_link' => 'required|string'
+            'google_map_link' => 'required|string',
+            'points' => 'required|integer',
         ];
     }
 }

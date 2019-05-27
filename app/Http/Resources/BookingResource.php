@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Booking;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,8 +27,7 @@ class BookingResource extends JsonResource
             'car_year' => $this->car->year,
             'car_model' => $this->car->car_model->name,
             'car_category' => $this->car->car_model->car_category->name,
-            'booking_stat' => $this->status,
-            'booking_points' => $this->points,
+            'points' => $this->pts,
             'google_map_link' => $this->location_link
         ];
     }

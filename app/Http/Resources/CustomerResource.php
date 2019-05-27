@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Customer;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,19 +15,16 @@ class CustomerResource extends JsonResource
     public function toArray($request)
     {
         return[
-            'name' => $this->first_name.' '.$this->last_name,
+            'firstName' => $this->first_name,
+            'lastName' => $this->last_name,
             'sex' => $this->gender,
             'email_address' => $this->email,
             'phone_no' => $this->phone_number,
             'status' => $this->account_status,
-            'points' => $this->points,
+            'points' => $this->pts,
             'bookings_count' => $this->bookings->count(),
             'bookings_total_cost' => $this->bookings->sum('cost'),
-            'reviews_count' => $this->reviews->count(),
-            'href' => [
-                'bookings' => route('bookings.index',$this->id),
-                'reviews' => route('reviews.index', $this->id)
-            ]
+            'reviews_count' => $this->reviews->count()
         ];
     }
 }
