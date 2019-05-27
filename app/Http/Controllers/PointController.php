@@ -15,9 +15,9 @@ class PointController extends Controller
 
     public function index()
     {
-        return return ['message' => 200, 
+        return ['message' => 200, 
                 'error' => [], 
-                'data' => VoucherResource::collection(Voucher::all())];
+                'data' => PointResource::collection(Point::all())];
     }
 
     public function add(PointRequest $request)
@@ -27,6 +27,8 @@ class PointController extends Controller
         $point->version = $request->version;
         // Save
         $point->save();
-        return response(['data' => new PointResource($point)], Response::HTTP_CREATED);
+        return response(['message' => 202, 
+                        'error' => [], 
+                        'data' => new PointResource($point)],Response::HTTP_OK);
     }
 }

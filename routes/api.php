@@ -105,4 +105,4 @@ Route::post('/points/add-new','PointController@add');
 // -----------------------------{::::: Notification Types Route :::::}----------------------------- //
 Route::post('/notification-types/get-all','NotificationTypeController@index')->name('notification-types.index');
 Route::post('/notification-types/add-new','NotificationTypeController@add');
-Route::post('/notification-types/{notification-types}/edit-details','NotificationTypeController@update');
+Route::post('/notification-types/{notification_types}/edit-details','NotificationTypeController@update');

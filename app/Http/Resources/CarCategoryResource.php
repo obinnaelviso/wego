@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\CarCategory;
+namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class CarCategoryCollection extends Resource
+class CarCategoryResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -15,10 +15,7 @@ class CarCategoryCollection extends Resource
     public function toArray($request)
     {
         return [
-            'category_name' => $this->name,
-            'href' => [
-                'car_models' => route('car-models.index',$this->id),
-            ]
+            'category_name' => $this->name
         ];
     }
 }

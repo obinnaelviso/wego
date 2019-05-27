@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\NotificationType;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,10 +15,7 @@ class NotificationTypeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'type' => $this->name,
-            'href' => [
-                'notifications': route('notifications.type', $this->id)
-            ]
+            'type' => $this->name
         ];
     }
 }
