@@ -6,30 +6,35 @@ use App\Model\Notification;
 use App\Model\NotificationType;
 use App\Model\Customer;
 use App\Http\Requests\NotificationRequest;
-use App\Http\Resources\Notification\NotificationCollection;
-use App\Http\Resources\Notification\NotificationResource;
+use App\Http\Resources\NotificationResource;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api')->except('index','show');
+        $this->middleware('auth:api');
     }
     // Show all notifications
-    public function index()
+    public function all()
     {
-        return NotificationCollection::collection(Notification::paginate(7));
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => NotificationResource::collection(Notification::all())];
     }
     // Show notifications by types
     public function type(NotificationType $notification_type)
     {
-        return NotificationCollection::collection($notification_type->notifications);
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => NotificationResource::collection($notification_type->notifications)];
     }
 
-    public function customer_notifications(Customer $customer, NotificationType $notification_type)
+    public function index(Customer $customer, NotificationType $notification_type)
     {
-        return NotificationCollection::collection($customer->notifications()->paginate(7));
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => NotificationResource::collection($customer->notifications)];
     }
 
     public function add(NotificationRequest $request, Customer $customer, Notification $notification_type)
@@ -39,13 +44,9 @@ class NotificationController extends Controller
         $notification->msg = $request->message;
         // Save
         $customer->notifications()->save($notification);
-        return response(['data' => new NotificationResource($notification)],Response::HTTP_CREATED);
-    }
-
-   // Display full notification details
-    public function show(Customer $customer, Notification $type, Notification $notification)
-    {
-        return new NotificationResource($notification);
+        return response(['message' => 202, 
+                        'error' => [], 
+                        'data' => new NotificationResource($notification)],Response::HTTP_OK);
     }
 
     // update notifications

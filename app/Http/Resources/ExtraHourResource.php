@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\ExtraHour;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,10 +19,7 @@ class ExtraHourResource extends JsonResource
             'time' => $this->created_at,
             'cost_per_hr' => $this->cost_perHour,
             'total_hours' => $this->hours,
-            'total_cost' => $this->cost,
-            'href' => [
-                'all_extra_hours' => route('extra-hours.index')
-            ]
+            'total_cost' => $this->cost
         ];
     }
 }

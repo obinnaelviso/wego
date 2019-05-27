@@ -21,7 +21,7 @@ class CreateReviewsTable extends Migration
             $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
             $table->text('review');
             $table->integer('star');
-            $table->string('status')->default('active');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

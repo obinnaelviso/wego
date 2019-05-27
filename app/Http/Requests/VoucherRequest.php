@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class VoucherRequest extends FormRequest
+class VoucherRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,6 @@ class VoucherRequest extends FormRequest
     {
         return [
             'money_value' => 'required|integer',
-            'used' => 'required|integer',
             'remaining' => 'required|integer',
             'validity_date' => 'required',
             'expiry_date' => 'required',

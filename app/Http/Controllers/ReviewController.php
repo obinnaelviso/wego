@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReviewRequest;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Resources\Review\ReviewResource;
+use App\Http\Resources\ReviewResource;
 use App\Model\Review;
 use App\Model\Customer;
 use App\Model\Booking;
@@ -18,9 +18,19 @@ class ReviewController extends Controller
     }
     
     // Show all reviews
+    public function all()
+    {
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => ReviewResource::collection(Review::all())];
+    }
+
+    // Show all reviews by customer
     public function index(Customer $customer)
     {
-        return ReviewResource::collection($customer->reviews);
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => ReviewResource::collection($customer->reviews)];
     }
 
     // add review 
@@ -30,28 +40,25 @@ class ReviewController extends Controller
         $review->booking_id = $booking->id;
         $review->review = $request->comment;
         $review->star = $request->ratings;
-        $review->status = $request->status;
         // Save
         $customer->reviews()->save($review);
         // Enable back after performing operations
-        return response(['data' => new ReviewResource($review)],Response::HTTP_CREATED);
-    }
-
-   // show a review
- public function show(Customer $customer, Booking $booking, Review $review)
-    {
-        return new ReviewResource($review);
+        return response(['message' => 202, 
+                        'error' => [], 
+                        'data' => new ReviewResource($review)],Response::HTTP_OK);
     }
 
     // update a review
-    public function update(Request $request, Customer $customer, Booking $booking, Review $review)
+    public function update(ReviewRequest $request, Customer $customer, Booking $booking, Review $review)
     {
         $review->review = $request->comment;
         $review->star = $request->ratings;
         $review->status = "edited";
         // Save
         $customer->reviews()->save($review);
-        return response(['data' => new ReviewResource($review)],Response::HTTP_CREATED);
+        return response(['message' => 203, 
+                        'error' => [], 
+                        'data' => new ReviewResource($review)],Response::HTTP_OK);
     }
 
     // remove review

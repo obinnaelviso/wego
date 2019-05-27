@@ -7,31 +7,35 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Model\ExtraHour;
 use App\Model\Customer;
 use App\Model\Booking;
-use App\Http\Resources\ExtraHour\ExtraHourCollection;
-use App\Http\Resources\ExtraHour\ExtraHourResource;
+use App\Http\Resources\ExtraHourResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
 class ExtraHourController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api')
-             ->except('index','show', 'show_customer','show_customer_booking');
+        $this->middleware('auth:api');
     }
     
-    public function index() {
-        return ExtraHourCollection::collection(ExtraHour::paginate(7));
+    public function all() {
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => ExtraHourResource::collection(ExtraHour::all())];
     }
 
     public function show_customer(Customer $customer)
     {
-        return ExtraHourResource::collection($customer->extra_hours);
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => ExtraHourResource::collection($customer->extra_hours)];
     }
 
-    public function show_customer_booking(Customer $customer, Booking $booking) {
+    public function index(Customer $customer, Booking $booking) {
         $extraHour = ExtraHour::where('customer_id', $customer->id)
                             ->where('booking_id', $booking->id)->get();
-        return ExtraHourResource::collection($extraHour);
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => ExtraHourResource::collection($extraHour)];
     }
 
     // add extra hour 
@@ -44,24 +48,30 @@ class ExtraHourController extends Controller
         $extraHour->hours = $request->total_hours;
         $extraHour->cost = $request->cost_per_hr * $request->total_hours;
         $extraHour->save();
-        return response(['data' => new ExtraHourResource($extraHour)],Response::HTTP_CREATED);
+        return response(['message' => 202, 
+                        'error' => [], 
+                        'data' => new ExtraHourResource($extraHour)],Response::HTTP_OK);
     }
 
     // Show a particular extra hour
     public function show(Customer $customer, Booking $booking, ExtraHour $extraHour)
     {
-        return new ExtraHourResource($extraHour);
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => new ExtraHourResource($extraHour)];
     }
     
     // update details of extra hour
-    public function update(Request $request, Customer $customer, Booking $booking, ExtraHour $extraHour)
+    public function update(ExtraHourRequest $request, Customer $customer, Booking $booking, ExtraHour $extraHour)
     {
-        $extraHour->update($request->all());
-        return response(['data' => new ExtraHourResource($extraHour)],Response::HTTP_CREATED);
+        $extraHour->customer_id = $customer->id;
+        $extraHour->booking_id = $booking->id;
+        $extraHour->cost_perHour = $request->cost_per_hr;
+        $extraHour->hours = $request->total_hours;
+        $extraHour->cost = $request->cost_per_hr * $request->total_hours;
+        $extraHour->save();
+        return response(['message' => 206, 
+                        'error' => [], 
+                        'data' => new ExtraHourResource($extraHour)],Response::HTTP_OK);
     }
-    
-    // public function destroy(ExtraHour $extraHour)
-    // {
-    //     //
-    // }
 }

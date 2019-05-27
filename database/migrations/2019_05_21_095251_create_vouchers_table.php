@@ -21,7 +21,7 @@ class CreateVouchersTable extends Migration
             $table->integer('stock');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->string('status')->default('inactive');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

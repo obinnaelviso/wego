@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class ReviewRequest extends FormRequest
+class ReviewRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             'comment' => 'required',
-            'ratings' => 'required|integer',
-            'status' => 'required|string'
+            'ratings' => 'required|integer'
         ];
     }
 }

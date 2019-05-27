@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Resources\Voucher\VoucherResource;
+use App\Http\Resources\VoucherResource;
 use App\Http\Requests\VoucherRequest;
 use Symfony\Component\HttpFoundation\Response;
 use App\Model\Voucher;
@@ -10,12 +10,14 @@ use Illuminate\Http\Request;
 class VoucherController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api')->except('index','show');
+        $this->middleware('auth:api');
     }
 
     public function index()
     {
-        return VoucherResource::collection(Voucher::paginate(7));
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => VoucherResource::collection(Voucher::all())];
     }
 
     public function add(VoucherRequest $request)
@@ -23,25 +25,26 @@ class VoucherController extends Controller
         $voucher = new Voucher;
         $voucher->voucher_id = "GOGO".strtoupper(sha1(time()));
         $voucher->value = $request->money_value;
-        $voucher->count = $request->used;
         $voucher->stock = $request->remaining;
         $voucher->start_date = $request->validity_date;
         $voucher->end_date = $request->expiry_date;
         // Save
         $voucher->save();
-        return response(['data' => new VoucherResource($voucher)],Response::HTTP_CREATED);
+        return response(['message' => 202, 
+                        'error' => [], 
+                        'data' => new VoucherResource($voucher)],Response::HTTP_OK);
     }
 
     public function update(VoucherRequest $request, Voucher $voucher)
     {
-        $voucher->voucher_id = "GOGO".strtoupper(sha1(time()));
         $voucher->value = $request->money_value;
-        $voucher->count = $request->used;
         $voucher->stock = $request->remaining;
         $voucher->start_date = $request->validity_date;
         $voucher->end_date = $request->expiry_date;
         $voucher->save();
-        return response(['data' => new VoucherResource($voucher)],Response::HTTP_CREATED);
+        return response(['message' => 206, 
+                        'error' => [], 
+                        'data' => new VoucherResource($voucher)],Response::HTTP_OK);
     }
 
     public function action(Voucher $voucher, $action)

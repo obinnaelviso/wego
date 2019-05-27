@@ -11,13 +11,15 @@ use Illuminate\Http\Request;
 class BookingTimeController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api')->except('index','show');
+        $this->middleware('auth:api');
     }
     
     // Show all booking times
     public function index()
     {
-        return BookingTimeCollection::collection(BookingTime::all());
+        return ['message' => 200, 
+                'error' => [], 
+                'data' => BookingTimeResource::collection(BookingTime::all())];
     }
 
     // Add Booking time
@@ -27,20 +29,20 @@ class BookingTimeController extends Controller
         $booking_time->name = $request->booking_type;
         $booking_time->duration = $request->booking_hours;
         $booking_time->save();
-        return response(['data' => new BookingTimeCollection($booking_time)],Response::HTTP_CREATED);
+        return response(['message' => 200, 
+                        'error' => [], 
+                        'data' => new BookingTimeResource($booking_time)],Response::HTTP_OK);
     }
 
     // Update booking time
-   public function update(Request $request, BookingTime $bookingTime)
+   public function update(BookingTimeRequest $request, BookingTime $bookingTime)
     {
-        $bookingTime->update($request->all());
-        return response(['data' => new BookingTimeCollection($bookingTime)],Response::HTTP_CREATED);
+        $booking_time = new BookingTime;
+        $booking_time->name = $request->booking_type;
+        $booking_time->duration = $request->booking_hours;
+        $booking_time->save();
+        return response(['message' => 200, 
+                        'error' => [], 
+                        'data' => new BookingTimeResource($booking_time)],Response::HTTP_OK);
     }
-
-    // Delete booking time
-    // public function destroy(BookingTime $bookingTime)
-    // {
-    //     $bookingTime->delete();
-    //     return response(null, Response::HTTP_NO_CONTENT);
-    // }
 }

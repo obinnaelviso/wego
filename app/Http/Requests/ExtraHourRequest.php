@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use Illuminate\Foundation\Http\FormRequest;
 
 class ExtraHourRequest extends Request
 {
@@ -25,11 +24,8 @@ class ExtraHourRequest extends Request
     public function rules()
     {
         return [
-            // 'customer_id' => 'required|integer',
-            // 'booking_id' => 'required|integer',
             'cost_per_hr' => 'required',
-            'total_hours' => 'required|integer',
-            // 'total_cost' => 'required'
+            'total_hours' => 'required|integer'
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Notification;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,11 +18,7 @@ class NotificationResource extends JsonResource
             'customer_name'=>$this->customer->first_name.' '.$this->customer->last_name,
             'type'=>$this->notification_type->name,
             'message'=>$this->msg,
-            'status'=>$this->status,
-            'href' => [
-                'customer_notifications' => route('notifications.customer-notifications', [$this->customer->id, $this->notification_type->id]),
-                'all_notifications' => route('notifications.index')
-            ]
+            'status'=>$this->status
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Voucher;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,11 +21,7 @@ class VoucherResource extends JsonResource
             'remaining' => $this->stock,
             'validity_date' => $this->start_date,
             'expiry_date' => $this->end_date,
-            'voucher_stat' => $this->status,
-            'href' => [
-                // '' => route('car-categories.index'),
-                // 'cars' => route('cars.index',[$this->car_category, $this->id])
-            ]
+            'voucher_stat' => $this->status
         ];
     }
 }
