@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/drivers/register', 'Web\Auth\RegisterController@register_driver');
+Route::get('/frontdeskAdmin/register', 'Web\Auth\RegisterController@register_frontdesk_admin');

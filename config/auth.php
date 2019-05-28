@@ -41,6 +41,16 @@ return [
             'provider' => 'users',
         ],
 
+        'frontdeskAdmin' => [
+            'driver' => 'session',
+            'provider' => 'frontdeskAdmins',
+        ],
+
+        'driver' => [
+            'driver' => 'session',
+            'provider' => 'drivers',
+        ],
+
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
@@ -68,7 +78,15 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Model\User::class,
+        ],
+        'drivers' => [
+            'driver' => 'eloquent',
+            'model' => App\Model\Driver::class,
+        ],
+        'frontdeskAdmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Model\FrontdeskAdmin::class,
         ],
 
         // 'users' => [
@@ -95,6 +113,16 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'frontdeskAdmins' => [
+            'provider' => 'frontdeskAdmins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'drivers' => [
+            'provider' => 'drivers',
             'table' => 'password_resets',
             'expire' => 60,
         ],
