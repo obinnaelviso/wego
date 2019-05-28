@@ -7,6 +7,7 @@ use App\Model\Review;
 use App\Model\Voucher;
 use App\Model\ExtraHour;
 use App\Model\Notification;
+use App\Model\IssuedVoucher;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
@@ -25,6 +26,10 @@ class Customer extends Model
 
     public function extra_hours() {
     	return $this->hasMany(ExtraHour::class);
+    }
+
+    public function issued_vouchers() {
+        return $this->hasMany(IssuedVoucher::class);
     }
 
     public function notifications() {

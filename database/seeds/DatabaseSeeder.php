@@ -25,5 +25,10 @@ class DatabaseSeeder extends Seeder
         factory(App\Model\Notification::class, 150)->create();
         factory(App\Model\Point::class, 20)->create();
         factory(App\Model\Voucher::class, 50)->create();
+        factory(App\Model\Driver::class, 10)->create();
+        factory(App\Model\Location::class, 15)->create();
+        factory(App\Model\FrontdeskAdmin::class, 10)->create();
+        factory(App\Model\IssuedVoucher::class, 50)->create();
+        factory(App\Model\DriverLocation::class, 10)->create();
     }
 }

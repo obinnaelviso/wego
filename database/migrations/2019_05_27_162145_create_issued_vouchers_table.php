@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotificationsTable extends Migration
+class CreateIssuedVouchersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,21 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('issued_vouchers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
-            $table->unsignedBigInteger('notification_type_id');
             $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('voucher_id');
             $table->integer('status')->default(0);
-            $table->text('msg');
             
             $table->foreign('customer_id')
                   ->references('id')
                   ->on('customers')
                   ->onDelete('cascade');
-            $table->foreign('notification_type_id')
+            $table->foreign('voucher_id')
                   ->references('id')
-                  ->on('notification_types')
+                  ->on('vouchers')
                   ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -39,6 +38,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('issued_vouchers');
     }
 }

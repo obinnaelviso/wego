@@ -21,9 +21,11 @@ class CreateBookingsTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->unsignedBigInteger('booking_time_id');
             $table->foreign('booking_time_id')->references('id')->on('booking_times')->onDelete('cascade');
+            $table->unsignedBigInteger('driver_id')->nullable();
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->double('cost');
             $table->dateTime('time');
-            $table->string('status')->default(0);
+            $table->integer('status')->default(0);
             $table->string('location');
             $table->string('location_link');
             $table->integer('pts');

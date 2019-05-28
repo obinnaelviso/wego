@@ -106,3 +106,38 @@ Route::post('/points/add-new','PointController@add');
 Route::post('/notification-types/get-all','NotificationTypeController@index')->name('notification-types.index');
 Route::post('/notification-types/add-new','NotificationTypeController@add');
 Route::post('/notification-types/{notification_types}/edit-details','NotificationTypeController@update');
+
+// -----------------------------{::::: Driver Routes :::::}----------------------------- //
+Route::post('/drivers/get-all', 'DriverController@index');
+Route::post('/drivers/{driver}/show-details', 'DriverController@show');
+Route::post('/drivers/add-new', 'DriverController@add');
+Route::post('/drivers/{driver}/edit-details', 'DriverController@update');
+Route::post('/drivers/{driver}/action/{action}', 'DriverController@action');
+
+// -----------------------------{::::: FrontDesk Admin Routes :::::}----------------------------- //
+Route::post('/frontdesk-admins/get-all', 'FrontdeskAdminController@index');
+Route::post('/frontdesk-admins/{frontdesk_admin}/show-details', 'FrontdeskAdminController@show');
+Route::post('/frontdesk-admins/add-new', 'FrontdeskAdminController@add');
+Route::post('/frontdesk-admins/{frontdesk_admin}/edit-details', 'FrontdeskAdminController@update');
+Route::post('/frontdesk-admins/{frontdesk_admin}/action/{action}', 'FrontdeskAdminController@action');
+
+// -----------------------------{::::: Location Routes :::::}----------------------------- //
+Route::post('/locations/get-all', 'LocationController@index');
+Route::post('/locations/add-new', 'LocationController@add');
+Route::post('/locations/{location}/edit-details', 'LocationController@update');
+
+// -----------------------------{::::: Issued Voucher Route :::::}----------------------------- //
+Route::post('/issued-vouchers/get-all','IssuedVoucherController@index');
+Route::post('/customers/{customer}/issued-vouchers/get-all','IssuedVoucherController@customers');
+Route::post('/vouchers/{voucher}/issued-vouchers/get-all','IssuedVoucherController@vouchers');
+Route::group(['prefix'=>'customers/{customer}/vouchers/{voucher}'], function() {
+	Route::post('/issued-vouchers/{issued_voucher}/show-details', 'IssuedVoucherController@show');
+	Route::post('/issued-vouchers/add-new', 'IssuedVoucherController@add');
+	Route::post('/issued-vouchers/{issued_vouchers}/{$action}', 'IssuedVoucherController@action');
+});
+
+// -----------------------------{::::: Driver Location Route :::::}----------------------------- //
+Route::post('/driver-locations/get-all','DriverLocationController@index');
+Route::post('/drivers/{driver}/driver-locations/get-all','DriverLocationController@drivers');
+Route::post('/locations/{location}/driver-locations/get-all','DriverLocationController@locations');
+Route::post('/drivers/{driver}/locations/{location}/driver-locations/add-new', 'DriverLocationController@add');

@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Model\Customer;
+use App\Model\Driver;
 use App\Model\Car;
 use App\Model\BookingTime;
 use App\Model\ExtraHour;
@@ -15,6 +16,10 @@ class Booking extends Model
     
     public function customer() {
     	return $this->belongsTo(Customer::class);
+    }
+
+    public function driver() {
+        return $this->belongsTo(Driver::class);
     }
 
     public function car() {

@@ -25,7 +25,7 @@ class CreateCarsTable extends Migration
             $table->integer('year');
             $table->string('colour');
             $table->string('img_path');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
