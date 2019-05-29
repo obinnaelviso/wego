@@ -26,7 +26,10 @@ class FrontdeskAdminRequest extends Request
         return [
             'firstName' => 'required|max:255',
             'lastName' => 'required|max:255',
-            'email_address' => 'required|unique:frontdesk_admins,email|email',
+            'email_address' => 'required|
+                                unique:frontdesk_admins,email|
+                                unique:drivers,email|
+                                unique:customers,email|email',
             'password' => 'required|min:6',
             'sex' => 'required',
             'phone_no' => 'required'

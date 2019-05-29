@@ -22,13 +22,25 @@ class RegisterController extends Controller
     	return view('auth.registerDriver');
     }
 
-    public function add_driver(DriverRequest $request)
+    public function add_driver(Request $request)
     {
+    	$this->validate(request(), [
+    		'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'password' => 'required|confirmed|min:6',
+            'email_address' => 'required|
+                                unique:frontdesk_admins,email|
+                                unique:drivers,email|
+                                unique:customers,email|email',
+            'sex' => 'required',
+            'phone_no' => 'required'
+    	]);
+
         $driver = new Driver;
         $driver->first_name = $request->firstName;
         $driver->last_name = $request->lastName;
         $driver->email = $request->email_address;
-        $driver->password = Hash::make($request->password);
+        $driver->password = $request->password;
         $driver->gender = $request->sex;
         $driver->phone_number = $request->phone_no;
         $driver->save();
@@ -36,13 +48,26 @@ class RegisterController extends Controller
         return "success";
     }
 
-    public function add_frontdeskAdmin(FrontdeskAdminRequest $request)
+    public function add_frontdeskAdmin(Request $request)
     {
+    	$this->validate(request(), [
+    		'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'password' => 'required|confirmed|min:6',
+            'email_address' => 'required|
+                                unique:frontdesk_admins,email|
+                                unique:drivers,email|
+                                unique:customers,email|email',
+            'sex' => 'required',
+            'phone_no' => 'required'
+    	]);
+
+    	// Register
         $frontdesk = new FrontdeskAdmin;
         $frontdesk->first_name = $request->firstName;
         $frontdesk->last_name = $request->lastName;
         $frontdesk->email = $request->email_address;
-        $frontdesk->password = Hash::make($request->password);
+        $frontdesk->password = $request->password;
         $frontdesk->gender = $request->sex;
         $frontdesk->phone_number = $request->phone_no;
         $frontdesk->save();

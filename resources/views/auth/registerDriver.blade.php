@@ -8,9 +8,10 @@
     <meta name="description" content="Gogo Web">
     <meta name="author" content="Gogo Web">
     <meta name="keywords" content="Gogo Web">
-
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title Page-->
-    <title>Gogoweb - Register Driver</title>
+    <title>Gogo - Register Driver</title>
 
     <!-- Icons font CSS-->
     <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -31,42 +32,34 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
-                    <h2 class="title">Driver Registration Form</h2>
-                    <form method="POST">
+                    <h2 class="title">Driver Registration</h2>
+                    <form method="POST" action="{{ route('registerDriver') }}">
+                        @csrf
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+                                    <label class="label" for="firstName">first name</label>
+                                    <input class="input--style-4" type="text" id="firstName" name="firstName" value="{{ old('firstName') }}" required autofocus>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" name="last_name">
+                                    <label class="label" for="lastName">last name</label>
+                                    <input class="input--style-4" type="text" id="lastName" name="lastName" value="{{ old('lastName') }}" required autofocus>
                                 </div>
                             </div>
                         </div>
                         <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Birthday</label>
-                                    <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
-                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2">
+                            <div class="col-4">
                                 <div class="input-group">
                                     <label class="label">Gender</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
+                                            <input type="radio" checked="checked" name="sex" value="male">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <label class="radio-container">Female
-                                            <input type="radio" name="gender">
+                                        <label class="radio-container m-r-45">Female
+                                            <input type="radio" name="sex" value="female">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -76,33 +69,44 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email">
+                                    <label class="label" for="email_address">Email</label>
+                                    <input class="input--style-4" type="email" id="email_address" name="email_address" value="{{ old('email_address') }}" required autofocus>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Phone Number</label>
-                                    <input class="input--style-4" type="text" name="phone">
+                                    <label class="label" for="phone_no">Phone Number</label>
+                                    <input class="input--style-4" type="text" id="phone_no" name="phone_no" value="{{ old('phone_no') }}" required autofocus>
                                 </div>
                             </div>
                         </div>
-                        <div class="input-group">
-                            <label class="label">Subject</label>
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject">
-                                    <option disabled="disabled" selected="selected">Choose option</option>
-                                    <option>Subject 1</option>
-                                    <option>Subject 2</option>
-                                    <option>Subject 3</option>
-                                </select>
-                                <div class="select-dropdown"></div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label" for="password">password</label>
+                                    <input class="input--style-4" type="password" id="password" name="password" required autofocus>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label" for="password-confirmation">re-type password</label>
+                                    <input class="input--style-4" type="password" id="password-confirmation" name="password_confirmation" required autofocus>
+                                </div>
                             </div>
                         </div>
                         <div class="p-t-15">
                             <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
                         </div>
-                    </form>
+                    </form> <br>
+                    @if(count($errors))
+                        <div class="alert alert-danger"><ul>
+                        @foreach($errors->all() as $error)
+                             
+                                <li>{{ $error }}</li>
+                            
+                        @endforeach
+                        </ul></div>
+                    @endif
                 </div>
             </div>
         </div>
