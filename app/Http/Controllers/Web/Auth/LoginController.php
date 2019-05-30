@@ -29,9 +29,7 @@ class LoginController extends Controller
     {
         $loginDetails = request(['email', 'password']);
         if(Auth::guard('frontdeskAdmin')->attempt($loginDetails))
-            return redirect()->route('employerDashboard');
-        elseif(Auth::guard('jobSeeker')->attempt($loginDetails))
-            return redirect()->route('jobSeekerDashboard');
+            return redirect()->route('frontdesk_dashboard');
         else {
             // Display flash message
             session()->flash('errorLogin', 'Invalid username or password!');
@@ -47,11 +45,8 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        if(Auth::guard('jobSeeker')->check())
-            Auth::guard('jobSeeker')->logout();
-        else
-            Auth::guard('employer')->logout();
-        session()->flash('notifLogOut', 'You have successfully logged out!');
-        return redirect()->route('login');
+        if(Auth::guard('frontdeskAdmin')->check())
+            Auth::guard('frontdeskAdmin')->logout();
+        return redirect()->route('frontdesk_index');
     }
 }

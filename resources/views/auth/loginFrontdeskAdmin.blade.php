@@ -33,7 +33,9 @@
         <div class="limiter">
             <div class="container-login100" style="background-image: url('/images/bg-01.jpg');">
                 <div class="wrap-login100">
-                    <form class="login100-form validate-form" accept="{{ route('frontDeskAdmin_login') }}">
+
+                    <form class="login100-form validate-form"  method="POST" action="{{ route('frontdesk_login') }}">
+                        @csrf
                         <span class="login100-form-logo">
                             <i class="zmdi zmdi-landscape"></i>
                         </span>
@@ -41,14 +43,18 @@
                         <span class="login100-form-title p-b-34 p-t-27">
                             Log in
                         </span>
-
+                        @if(session()->has('errorLogin'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('errorLogin') }}
+                            </div>
+                         @endif
                         <div class="wrap-input100 validate-input" data-validate = "Enter email address">
                             <input class="input100" type="text" name="email" placeholder="Email">
                             <span class="focus-input100" data-placeholder="&#xf207;"></span>
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate="Enter password">
-                            <input class="input100" type="password" name="pass" placeholder="Password">
+                            <input class="input100" type="password" name="password" placeholder="Password">
                             <span class="focus-input100" data-placeholder="&#xf191;"></span>
                         </div>
 
@@ -71,6 +77,7 @@
                             </a>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

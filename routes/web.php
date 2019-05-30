@@ -25,5 +25,9 @@ Route::get('/frontdesk-admin/register', 'Web\Auth\RegisterController@register_fr
 Route::post('/drivers/register', 'Web\Auth\RegisterController@add_driver')->name('registerDriver');
 Route::post('/frontdesk-admin/register', 'Web\Auth\RegisterController@add_frontdeskAdmin')->name('registerFrontdesk');
 
-Route::get('/frontdesk-admin/', 'Web\Auth\LoginController@frontdesk_index');
-Route::post('/frontdesk-admin/', 'Web\Auth\LoginController@frontdesk_login')->name(frontDeskAdmin_login);
+// Login - Logout
+Route::get('/frontdesk-admin/login', 'Web\Auth\LoginController@frontdesk_index')->name('frontdesk_index');
+Route::post('/frontdesk-admin/', 'Web\Auth\LoginController@frontdesk_login')->name('frontdesk_login');
+Route::get('/frontdesk-admin/logout', 'Web\Auth\LoginController@logout')->name('logout');
+
+Route::get('/frontdesk-admin/dashboard/', 'Web\FrontdeskAdminController@index')->name('frontdesk_dashboard');

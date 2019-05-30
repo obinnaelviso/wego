@@ -11,7 +11,7 @@ use App\Model\Driver;
 class RegisterController extends Controller
 {
     public function __construct() {
-    	$this->middleware(['guest:frontdeskAdmin', 'guest:driver']);
+    	$this->middleware('guest:frontdeskAdmin');
     }
 
     public function register_frontdesk_admin() {
