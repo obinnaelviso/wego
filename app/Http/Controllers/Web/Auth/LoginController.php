@@ -29,7 +29,7 @@ class LoginController extends Controller
     {
         $loginDetails = request(['email', 'password']);
         if(Auth::guard('frontdeskAdmin')->attempt($loginDetails))
-            return redirect()->route('frontdesk_dashboard');
+            return redirect()->route('frontdesk_home');
         else {
             // Display flash message
             session()->flash('errorLogin', 'Invalid username or password!');
