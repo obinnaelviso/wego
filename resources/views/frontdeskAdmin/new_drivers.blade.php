@@ -35,7 +35,7 @@
 		                        <td>
 		                        	<span class="status--process">New</span>
 		                        </td>
-		                        <td><form method="POST" action="{{ route('frontdesk_driver_interview', $driver->id) }}">@csrf<button type="submit" class="btn btn-outline-primary">Send Interview</button></form>
+		                        <td><div class="btn-group"><a href="{{ route('frontdesk_view_driver', $driver->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a><form method="POST" action="{{ route('frontdesk_driver_interview', $driver->id) }}">@csrf<button type="submit" class="btn btn-warning btn-sm"> <i class="fas fa-paper-plane"></i> Send Interview</button></form></div>
 		                        </td>
 		                    </tr>
 		                    <tr class="spacer"></tr>

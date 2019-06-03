@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Model\Driver;
 use App\Model\Booking;
-use App\Model\DriverLocation;
+use App\Model\Car;
 use App\Http\Controllers\Controller;
 
 class FrontdeskAdminController extends Controller
@@ -17,6 +17,13 @@ class FrontdeskAdminController extends Controller
     public function index()
     {
         return view('frontdeskAdmin.home');
+    }
+
+    // Display the information of a driver
+    public function view_driver(Driver $driver)
+    {
+        $car = $driver->cars()->first();
+        return view('frontdeskAdmin.view_driver', compact(['driver','car']));
     }
 
     // Display the newly registered drivers
@@ -32,7 +39,7 @@ class FrontdeskAdminController extends Controller
     	$driver->account_status = 1;
     	$driver->save();
     	session()->flash('alert', 'Interview request sent!');
-    	return back();
+    	return redirect()->route('frontdesk_new_drivers');
     }
 
     // Display the newly registered drivers
@@ -48,7 +55,7 @@ class FrontdeskAdminController extends Controller
     	$driver->account_status = 2;
     	$driver->save();
     	session()->flash('alert', 'This driver is verified!');
-    	return back();
+        return redirect()->route('frontdesk_interview_drivers');
     }
 
     // Display the newly registered drivers
@@ -99,11 +106,11 @@ class FrontdeskAdminController extends Controller
         return view('frontdeskAdmin.assign_drivers', compact('bookings'));
     }
 
-    public function drivers_location(Booking $booking)
+    public function drivers_cars(Booking $booking)
     {
-    	$driver_locations = DriverLocation::paginate(10);
-    	$verified_drivers = Driver::where('account_status', 2)->paginate(10);
-        return view('frontdeskAdmin.drivers_location', compact(['booking', 'driver_locations','verified_drivers']));
+    	$drivers_cars = Car::all();
+        return $drivers_cars;
+        // return view('frontdeskAdmin.drivers_cars', compact(['drivers_cars', 'booking']));
     }
 
     // Booking status -- 2 -- Active booking

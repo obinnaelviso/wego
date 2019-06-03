@@ -25,7 +25,14 @@ class CarModelRequest extends Request
     public function rules()
     {
         return [
-            'model_name' => 'required|max:255|unique:car_models,name',
+            'car_model' => 'required|max:255|unique:car_models,name',
+            'color' => 'required|string',
+            'plate_no' => 'required|string|unique:car_models,plate_number',
+            'cost' => 'required|integer',
+            'percentage' => 'required|integer',
+            'color' => 'required|string',
+            'car_year' => 'required|integer',
+            'car_img' => 'required|string'
         ];
     }
 }

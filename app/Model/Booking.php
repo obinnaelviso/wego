@@ -4,7 +4,7 @@ namespace App\Model;
 
 use App\Model\Customer;
 use App\Model\Driver;
-use App\Model\Car;
+use App\Model\CarModel;
 use App\Model\BookingTime;
 use App\Model\ExtraHour;
 use App\Model\Review;
@@ -22,8 +22,8 @@ class Booking extends Model
         return $this->belongsTo(Driver::class);
     }
 
-    public function car() {
-    	return $this->belongsTo(Car::class);
+    public function car_model() {
+    	return $this->belongsTo(CarModel::class);
     } 
 
     public function booking_time() {

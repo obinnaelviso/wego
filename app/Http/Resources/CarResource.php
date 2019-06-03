@@ -17,13 +17,14 @@ class CarResource extends JsonResource
         return [
             'car_name' => $this->name,
             'car_model' => $this->car_model->name,
+            'car_category' => $this->car_category->name,
             'plate_no' => $this->plate_number,
-            'in_stock' => $this->stock,
             'cost' => $this->price,
             'color' => $this->colour,
             'car_year' =>$this->year,
             'bookings_count' => $this->bookings->count(),
-            'percentage' => $this->booking_percent
+            'percentage' => $this->booking_percent,
+            'image' => $this->img_path,
         ];
     }
 }

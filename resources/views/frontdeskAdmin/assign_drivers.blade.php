@@ -36,8 +36,8 @@
 			                        <td class="desc">{{ $booking->booking_time->name }}</td>
 			                        <td>{{ $booking->cost }}</td>
 			                        <td>{{ $booking->location }}</td>
-			                        <td><i class="text-primary">Payment Confirmed</i></td>
-			                        <td><form method="POST" action="{{ route('frontdesk_drivers_location', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-primary">Assign a Driver</button></form>
+			                        <td><i class="text-success">Payment Confirmed</i></td>
+			                        <td><form method="POST" action="{{ route('frontdesk_drivers_cars', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-primary">Assign a Driver</button></form>
 			                        </td>
 			                    </tr>
 			                    <tr class="spacer"></tr>

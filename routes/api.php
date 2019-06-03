@@ -17,21 +17,21 @@ Route::post('/customers/{customer}/action/{action}', 'CustomerController@action'
 
 
 // -----------------------------{::::: Car Model Routes :::::}----------------------------- //
-Route::post('/car-models/get-all','CarModelController@all');
+Route::post('/car-makes/get-all','CarMakeController@all');
 Route::group(['prefix'=>'car-categories'], function() {
-	Route::post('/{car_category}/car-models/get-all','CarModelController@index')->name('car-models.index');
-	Route::post('/{car_category}/car-models/add-new','CarModelController@add');
-	Route::post('/{car_category}/car-models/{car_model}/edit-details','CarModelController@update');
+	Route::post('/{car_category}/car-makes/get-all','CarMakeController@index')->name('car-makes.index');
+	Route::post('/{car_category}/car-makes/add-new','CarMakeController@add');
+	Route::post('/{car_category}/car-makes/{car_make}/edit-details','CarMakeController@update');
 });
 
-// -----------------------------{::::: Cars Routes :::::}----------------------------- //
-Route::post('/cars/get-all', 'CarController@all');
-Route::group(['prefix'=>'car-categories/{car_category}/car-models/{car_model}'], function() {
-	Route::post('/cars/get-all','CarController@index');
-	Route::post('/cars/{car}/show-details','CarController@show');
-	Route::post('/cars/{car}/edit-details','CarController@update');
-	// Route::post('/cars/{car}/action/{action}','CarController@action');
-	Route::post('/cars/add-new','CarController@add');
+// -----------------------------{::::: Car Model Routes :::::}----------------------------- //
+Route::post('/car-models/get-all', 'CarModelController@all');
+Route::group(['prefix'=>'car-makes/{car_make}'], function() {
+	Route::post('/car-models/get-all','CarModelController@index');
+	Route::post('/car-models/{car_model}/show-details','CarModelController@show');
+	Route::post('/car-models/{car_model}/edit-details','CarModelController@update');
+	// Route::post('/car-models/{car_model}/action/{action}','CarModelController@action');
+	Route::post('/car-models/add-new','CarModelController@add');
 });
 
 // -----------------------------{::::: Car Category Routes :::::}----------------------------- //

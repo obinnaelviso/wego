@@ -21,12 +21,11 @@ class BookingResource extends JsonResource
             'booking_type' => $this->booking_time->name,
             'booking_hours' => $this->booking_time->duration,
             'pickup_address' => $this->location,
-            'car' => $this->car->name,
-            'car_plate_no' => $this->car->plate_number,
-            'car_colour' => $this->car->colour,
-            'car_year' => $this->car->year,
-            'car_model' => $this->car->car_model->name,
-            'car_category' => $this->car->car_model->car_category->name,
+            'car_model' => $this->car_model->name,
+            'car_plate_no' => $this->car_model->plate_number,
+            'car_colour' => $this->car_model->colour,
+            'car_year' => $this->car_model->year,
+            'car_make' => $this->car_model->car_make->name,
             'points' => $this->pts,
             'google_map_link' => $this->location_link
         ];

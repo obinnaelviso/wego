@@ -1,9 +1,6 @@
 <div class="menu-sidebar2__content js-scrollbar2">
         <div class="account2">
-            <div class="image img-cir img-120">
-                <img src="/images/icon/avatar-big-01.jpg" alt="John Doe" />
-            </div>
-            <h4 class="name">{{ Auth::guard('frontdeskAdmin')->user()->first_name.' '.Auth::guard('frontdeskAdmin')->user()->last_name }}</h4>
+            <h4 class="name">Welcome <br /> {{ Auth::guard('frontdeskAdmin')->user()->first_name.' '.Auth::guard('frontdeskAdmin')->user()->last_name }}</h4>
         </div>
         <nav class="navbar-sidebar2">
             <ul class="list-unstyled navbar__list">

@@ -35,7 +35,7 @@ class BookingController extends Controller
     public function add(BookingRequest $request, Customer $customer)
     {
         $booking = new Booking;
-        $booking->car_id = $request->car_id;
+        $booking->car_model_id = $request->car_model_id;
         $booking->booking_time_id = $request->booking_time_id;
         // $booking->date = date('Y-m-d H:i:s');
         $booking->time = $request->date;
@@ -65,7 +65,7 @@ class BookingController extends Controller
     public function update(BookingRequest $request, Customer $customer, Booking $booking)
     {
         $booking->customer_id = $customer->id;
-        $booking->car_id = $request->car_id;
+        $booking->car_model_id = $request->car_model_id;
         $booking->booking_time_id = $request->booking_time_id;
         // $booking->date = date('Y-m-d H:i:s');
         $booking->time = $request->date;

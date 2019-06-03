@@ -33,6 +33,9 @@ Route::get('/frontdesk-admin/logout', 'Web\Auth\LoginController@logout')->name('
 // Frontdesk Admin Dashboard
 Route::get('/frontdesk-admin/dashboard/', 'Web\FrontdeskAdminController@index')->name('frontdesk_home');
 
+// Frontdesk Admin show driver details
+Route::get('/frontdesk-admin/dashboard/drivers/{driver}/view', 'Web\FrontdeskAdminController@view_driver')->name('frontdesk_view_driver');
+
 // Show new drivers, set interview 
 Route::get('/frontdesk-admin/dashboard/new-drivers', 'Web\FrontdeskAdminController@new_drivers')->name('frontdesk_new_drivers');
 Route::post('/frontdesk-admin/dashboard/new-drivers/{driver}/action', 'Web\FrontdeskAdminController@send_interview')->name('frontdesk_driver_interview');
@@ -53,5 +56,8 @@ Route::post('/frontdesk-admin/dashboard/pending-bookings/{booking}/confirm-payme
 
 // Assign-bookings
 Route::get('/frontdesk-admin/dashboard/assign-drivers', 'Web\FrontdeskAdminController@assign_drivers')->name('frontdesk_assign_drivers');
-Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/drivers-location', 'Web\FrontdeskAdminController@drivers_location')->name('frontdesk_drivers_location');
+Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/drivers-cars', 'Web\FrontdeskAdminController@drivers_cars')->name('frontdesk_drivers_cars');
 Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/{driver}/action', 'Web\FrontdeskAdminController@send_driver')->name('frontdesk_send_driver');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

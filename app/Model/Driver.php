@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use App\Model\Driver;
-use App\Model\DriverLocation;
+use App\Model\Car;
 // use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +21,11 @@ class Driver extends Model
     	$this->attributes['password'] = Hash::make($password);
     }
     
-    public function driver_locations() {
-    	return $this->hasMany(DriverLocation::class);
+    public function location() {
+    	return $this->belongsTo(Location::class);
+    }
+
+    public function cars() {
+        return $this->hasMany(Car::class);
     }
 }

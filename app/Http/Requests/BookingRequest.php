@@ -25,7 +25,7 @@ class BookingRequest extends FormRequest
     {
         return [
             'booking_time_id' => 'required|integer',
-            'car_id' => 'required|integer',
+            'car_model_id' => 'required|integer',
             'date' => 'required',
             'total_cost' => 'required',
             'pickup_address' => 'required|string',

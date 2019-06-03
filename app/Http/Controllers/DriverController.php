@@ -31,6 +31,13 @@ class DriverController extends Controller
         $driver->password = Hash::make($request->password);
         $driver->gender = $request->sex;
         $driver->phone_number = $request->phone_no;
+        $driver->home_address = $request->address;
+        $driver->bvn = $request->bank_verification_no;
+        $driver->drivers_license = $request->drivers_license_img;
+        $driver->account_name = $request->acc_name;
+        $driver->account_number = $request->acc_number;
+        $driver->account_type = $request->acc_type;
+        $driver->bank = $request->bank_name;
         $driver->save();
         return response(['message' => 200, 
                         'error' => [], 
@@ -53,7 +60,7 @@ class DriverController extends Controller
         $driver->gender = $request->sex;
         $driver->phone_number = $request->phone_no;
         $driver->save();
-        return response(['message' => 200, 
+        return response(['message' => 200,  
                         'error' => [], 
                         'data' => new DriverResource($driver)],Response::HTTP_OK);;
     }

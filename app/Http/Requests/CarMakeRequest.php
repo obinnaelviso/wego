@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DriverLocationRequest extends FormRequest
+class CarMakeRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class DriverLocationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,7 @@ class DriverLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'make_name' => 'required|max:255|unique:car_models,name',
         ];
     }
 }

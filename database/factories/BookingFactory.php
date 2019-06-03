@@ -3,15 +3,15 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use App\Model\Booking;
-use App\Model\Car;
+use App\Model\CarModel;
 use App\Model\Customer;
 use App\Model\BookingTime;
 use Faker\Generator as Faker;
 
 $factory->define(Booking::class, function (Faker $faker) {
     return [
-        'car_id' => function() {
-        	return Car::all()->random();
+        'car_model_id' => function() {
+        	return CarModel::all()->random();
         },
         'customer_id' => function() {
         	return Customer::all()->random();
