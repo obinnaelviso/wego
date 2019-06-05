@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Model\Driver;
+use App\Model\CarDriver;
 use App\Model\Booking;
 use App\Model\CarModel;
 use App\Model\Customer;
@@ -156,9 +157,14 @@ class FrontdeskAdminController extends Controller
         // show available drivers by the car chosen by the customer
     public function drivers_cars(Booking $booking)
     {
-    	$drivers_cars = CarModel::where('name', $booking->car_model->name)->get();
+    	// $drivers_cars = CarDriver::where('car_model_id', $booking->car_model_id)
+     //                            ->where('status', 1)
+     //                            ->where('colour', $booking->car_colour)
+     //                            ->where('year', $booking->car_year)->get();
+        $drivers_cars = CarDriver::where('car_model_id', $booking->car_model_id)
+                                ->where('status', 1)->get();
         // return $drivers_cars;
-        return view('frontdeskAdmin.drivers_cars', compact(['drivers_cars','booking']));
+        return view('frontdeskAdmin.drivers_cars', compact(['drivers_cars', 'booking']));
     }
 
     // Booking status -- 2 -- Driver assigned
@@ -168,11 +174,11 @@ class FrontdeskAdminController extends Controller
     {
     	$booking->status = 2;
     	$booking->driver_id = $driver->id;
-        $car_model = CarModel::where('driver_id', $driver->id)->first();
-        $car_model->status = 2;
+        $car_driver = CarDriver::where('driver_id', $driver->id)->first();
+        $car_driver->status = 2;
     	$driver->account_status = 3;
         $driver->save();
-        $car_model->save();
+        $car->save();
     	$booking->save();
     	session()->flash('alert', 'Driver assigned to this booking!');
     	return redirect()->route('frontdesk_assign_drivers');
@@ -193,8 +199,8 @@ class FrontdeskAdminController extends Controller
     {
         $driver = Driver::find($booking->driver_id);
         $booking->status = 6;
-        $car_model = CarModel::where('driver_id', $booking->driver_id)->first();
-        $car_model->status = 1;
+        $car_driver = CarDriver::where('driver_id', $booking->driver_id)->first();
+        $car_driver->status = 1;
         $driver->account_status = 2;
         $driver->save();
         // $car_model->save();
@@ -230,6 +236,14 @@ class FrontdeskAdminController extends Controller
     // View booking details
     public function view_booking(Booking $booking)
     {
+        return view('frontdeskAdmin.view_booking', compact('booking'));
+    }
+
+    /*---------------------------* Car *---------------------------*/
+        // View car details
+    public function new_cars(Booking $booking)
+    {
+        $cars = Car::
         return view('frontdeskAdmin.view_booking', compact('booking'));
     }
 }

@@ -103,6 +103,11 @@
                                     <td>
                                     <form method="POST" action="{{ route('frontdesk_cancel_booking', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-warning">Cancel Booking</button></form></td>
                                     @break
+                                @case(3)
+                                    <td><em>Action</em></td>
+                                    <td>
+                                    <form method="POST" action="{{ route('frontdesk_cancel_booking', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-warning">Cancel Booking</button></form></td>
+                                    @break
                             @endswitch
                     </tr>
                 </tbody>

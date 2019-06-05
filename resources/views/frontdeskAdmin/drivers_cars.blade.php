@@ -22,14 +22,14 @@
 	                <tbody>
 
 	                	@foreach($drivers_cars as $drivers_car)
-	                		@if($drivers_car->driver->account_status == 2)
+	                		{{-- @if($drivers_car->driver->account_status == 2) --}}
 			                    <tr class="tr-shadow">
 			                        <td>{{ $drivers_car->driver->first_name.' '.$drivers_car->driver->last_name }}</td>
 			                        <td>
-			                            {{ ucfirst($drivers_car->name) }}
+			                            {{ ucfirst($drivers_car->car_model->name) }}
 			                        </td>
 			                        <td>
-			                            {{ ucfirst($drivers_car->car_make->name) }}
+			                            {{ ucfirst($drivers_car->car_model->car_make->name) }}
 			                        </td>
 			                        <td>
 			                            <span class="block-email">{{ $drivers_car->driver->email }}</span>
@@ -40,7 +40,7 @@
 			                        </td>
 			                    </tr>
 			                    <tr class="spacer"></tr>
-			                @endif
+			                {{-- @endif --}}
 	                    @endforeach
 	                </tbody>
 	            </table>

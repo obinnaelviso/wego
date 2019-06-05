@@ -78,6 +78,32 @@
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
+                        <i class="fas fa-suitcase"></i>Manage Cars
+                        <span class="arrow">
+                            <i class="fas fa-angle-down"></i>
+                        </span>
+                    </a>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="index.html">
+                                <i class="fas fa-suitcase"></i>New Cars</a>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="index.html">
+                                <i class="fas fa-suitcase"></i>Unverified Cars</a>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="index.html">
+                                <i class="fas fa-suitcase"></i>Rejected Cars</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub">
+                    <a class="js-arrow" href="#">
                         <i class="fas fa-users"></i>Manage Customers
                         <span class="arrow">
                             <i class="fas fa-angle-down"></i>

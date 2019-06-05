@@ -19,6 +19,8 @@ $factory->define(Booking::class, function (Faker $faker) {
         'booking_time_id' => function() {
         	return BookingTime::all()->random();
         },
+        'car_year' => $faker->year($max = 'now'),
+        'car_colour' => $faker->colorName,
         'cost' => $faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 100000),
         'time' => $faker->dateTime,
         'location' => $faker->sentence($nbWords = 4, $variableNbWords = true),

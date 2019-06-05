@@ -4,8 +4,8 @@ namespace App\Model;
 
 use App\Model\Driver;
 use App\Model\Booking;
+use App\Model\CarDriver;
 use App\Model\CarMake;
-use App\Model\CarCategory;
 use Illuminate\Database\Eloquent\Model;
 
 class CarModel extends Model
@@ -14,13 +14,13 @@ class CarModel extends Model
     public function car_make() {
     	return $this->belongsTo(CarMake::class);
     }
-    public function car_category() {
-    	return $this->belongsTo(CarCategory::class);
-    }
     public function driver() {
     	return $this->belongsTo(Driver::class);
     }
     public function bookings() {
     	return $this->hasMany(Booking::class);
+    }
+    public function car_drivers() {
+        return $this->hasMany(CarDriver::class);
     }
 }

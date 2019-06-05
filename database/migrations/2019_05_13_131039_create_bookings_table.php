@@ -23,6 +23,8 @@ class CreateBookingsTable extends Migration
             $table->foreign('booking_time_id')->references('id')->on('booking_times')->onDelete('cascade');
             $table->unsignedBigInteger('driver_id')->nullable();
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
+            $table->string('car_year');
+            $table->string('car_colour');
             $table->double('cost');
             $table->dateTime('time');
             $table->integer('status')->default(0);

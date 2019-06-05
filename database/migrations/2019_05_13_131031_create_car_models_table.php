@@ -17,16 +17,11 @@ class CreateCarModelsTable extends Migration
            $table->bigIncrements('id');
             $table->unsignedBigInteger('car_make_id');
             $table->foreign('car_make_id')->references('id')->on('car_makes')->onDelete('cascade');
-            $table->unsignedBigInteger('driver_id');
-            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->string('name');
-            $table->integer('price')->nullable();
-            $table->string('plate_number'); 
+            $table->integer('price');
             $table->integer('booking_percent')->nullable();
-            $table->integer('year');
-            $table->string('colour');
-            $table->string('img_path');
-            $table->integer('status')->default(0);
+            $table->string('img_path'); 
+            $table->integer('status')->default(1); 
             $table->timestamps();
         });
     }
