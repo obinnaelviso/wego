@@ -37,7 +37,7 @@
 			                        <td>{{ $booking->cost }}</td>
 			                        <td>{{ $booking->location }}</td>
 			                        <td><i class="text-warning">Pending</i></td>
-			                        <td><form method="POST" action="{{ route('frontdesk_confirm_payment', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-primary">Confirm Payment</button></form>
+			                        <td><div class="btn-group"><a href="{{ route('frontdesk_view_booking', $booking->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a><form method="POST" action="{{ route('frontdesk_confirm_payment', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-success">Confirm Payment</button></form></div>
 			                        </td>
 			                    </tr>
 			                    <tr class="spacer"></tr>

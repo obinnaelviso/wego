@@ -11,8 +11,8 @@
 	                <thead>
 	                    <tr>
 	                        <th>driver name</th>
-	                        <th>car name</th>
 	                        <th>car model</th>
+	                        <th>car make</th>
 	                        <th>email</th>
 	                        <th>phone number</th>
 	                        <th>location</th>
@@ -20,25 +20,27 @@
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                	{{ drivers_cars }}
+
 	                	@foreach($drivers_cars as $drivers_car)
-		                    <tr class="tr-shadow">
-		                        <td>{{ $drivers_car->driver->first_name.' '.$driver->driver->last_name }}</td>
-		                        <td>
-		                            {{ $drivers_car->name }}
-		                        </td>
-		                        <td>
-		                            {{ $drivers_car->car_model->name }}
-		                        </td>
-		                        <td>
-		                            <span class="block-email">{{ $drivers_car->driver->email }}</span>
-		                        </td>
-		                        <td class="desc">{{ $drivers_car->driver->phone_number }}</td>
-		                        <td>{{ $drivers_car->driver->location->name }}</td>
-		                        <td><form method="POST" action="{{ route('frontdesk_send_driver', [$booking->id,$driver->driver->id]) }}">@csrf<button type="submit" class="btn btn-outline-warning">Assign</button></form>
-		                        </td>
-		                    </tr>
-		                    <tr class="spacer"></tr>
+	                		@if($drivers_car->driver->account_status == 2)
+			                    <tr class="tr-shadow">
+			                        <td>{{ $drivers_car->driver->first_name.' '.$drivers_car->driver->last_name }}</td>
+			                        <td>
+			                            {{ ucfirst($drivers_car->name) }}
+			                        </td>
+			                        <td>
+			                            {{ ucfirst($drivers_car->car_make->name) }}
+			                        </td>
+			                        <td>
+			                            <span class="block-email">{{ $drivers_car->driver->email }}</span>
+			                        </td>
+			                        <td class="desc">{{ $drivers_car->driver->phone_number }}</td>
+			                        <td>{{ $drivers_car->driver->location->name }}</td>
+			                        <td><form method="POST" action="{{ route('frontdesk_send_driver', [$booking->id,$drivers_car->driver_id]) }}">@csrf<button type="submit" class="btn btn-outline-warning">Assign</button></form>
+			                        </td>
+			                    </tr>
+			                    <tr class="spacer"></tr>
+			                @endif
 	                    @endforeach
 	                </tbody>
 	            </table>

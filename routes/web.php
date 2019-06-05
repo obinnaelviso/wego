@@ -59,6 +59,19 @@ Route::get('/frontdesk-admin/dashboard/assign-drivers', 'Web\FrontdeskAdminContr
 Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/drivers-cars', 'Web\FrontdeskAdminController@drivers_cars')->name('frontdesk_drivers_cars');
 Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/{driver}/action', 'Web\FrontdeskAdminController@send_driver')->name('frontdesk_send_driver');
 
+	// Active bookings
+Route::get('/frontdesk-admin/dashboard/active-bookings', 'Web\FrontdeskAdminController@active_bookings')->name('frontdesk_active_bookings');
+Route::post('/frontdesk-admin/dashboard/active-bookings/{booking}/cancel', 'Web\FrontdeskAdminController@cancel_booking')->name('frontdesk_cancel_booking');
+
+	// Completed bookings
+Route::get('/frontdesk-admin/dashboard/completed-bookings', 'Web\FrontdeskAdminController@completed_bookings')->name('frontdesk_completed_bookings');
+
+	// Reviewed bookings
+Route::get('/frontdesk-admin/dashboard/reviewed-bookings', 'Web\FrontdeskAdminController@reviewed_bookings')->name('frontdesk_reviewed_bookings');
+
+	// Cancelled bookings
+Route::get('/frontdesk-admin/dashboard/cancelled-bookings', 'Web\FrontdeskAdminController@cancelled_bookings')->name('frontdesk_cancelled_bookings');
+
 	// View-booking
 Route::get('/frontdesk-admin/dashboard/bookings/{booking}/view', 'Web\FrontdeskAdminController@view_booking')->name('frontdesk_view_booking');
 Auth::routes();

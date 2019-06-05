@@ -35,7 +35,7 @@
 			                        <td>{{ $booking->cost }}</td>
 			                        <td>{{ $booking->location }}</td>
 			                        <td><i class="text-warning">Cancelled</i></td>
-			                        <td><form method="POST" action="{{-- {{ route('frontdesk_cancel_booking', $booking->id) }} --}}">@csrf<button type="submit" class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i> View</button></form>
+			                        <td><a href="{{ route('frontdesk_view_booking', $booking->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a>
 			                        </td>
 			                    </tr>
 			                    <tr class="spacer"></tr>

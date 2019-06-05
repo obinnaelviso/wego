@@ -47,28 +47,28 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Car Name</td>
-                        <td>{{ ucfirst($car->name) }}</td>
+                        <td>Car Model</td>
+                        <td>{{ ucfirst($car_model->name) }}</td>
                     </tr>
                     <tr>
-                        <td>Car Model</td>
-                        <td>{{ ucfirst($car->car_model->name) }}</td>
+                        <td>Car Make</td>
+                        <td>{{ ucfirst($car_model->car_make->name) }}</td>
                     </tr>
                     <tr>
                         <td>Plate Number</td>
-                        <td>{{ strtoupper($car->plate_number) }}</td>
+                        <td>{{ strtoupper($car_model->plate_number) }}</td>
                     </tr>
                     <tr>
                         <td>Year</td>
-                        <td>{{ $car->year }}</td>
+                        <td>{{ $car_model->year }}</td>
                     </tr>
                     <tr>
                         <td>Colour</td>
-                        <td>{{ $car->colour }}</td>
+                        <td>{{ $car_model->colour }}</td>
                     </tr>
                     <tr>
                         <td>Car Image</td>
-                        <td>{{ $car->img_path }}</td>
+                        <td>{{ $car_model->img_path }}</td>
                     </tr>
                     <tr>
                         <td>Drivers License</td>

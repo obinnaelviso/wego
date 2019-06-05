@@ -28,8 +28,8 @@ class FrontdeskAdminController extends Controller
     // Display the information of a driver
     public function view_driver(Driver $driver)
     {
-        $car = $driver->car_models()->first();
-        return view('frontdeskAdmin.view_driver', compact(['driver','car']));
+        $car_model = $driver->car_models()->first();
+        return view('frontdeskAdmin.view_driver', compact(['driver','car_model']));
     }
 
     // Display the newly registered drivers

@@ -25,7 +25,7 @@ class Driver extends Model
     	return $this->belongsTo(Location::class);
     }
 
-    public function cars() {
-        return $this->hasMany(Car::class);
+    public function car_models() {
+        return $this->hasMany(CarModel::class);
     }
 }

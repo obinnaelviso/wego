@@ -17,7 +17,10 @@
 		                <thead>
 		                    <tr>
 		                        <th>customer name</th>
-		                        <th>customer email</th>
+		                        <th>email</th>
+		                        <th>phone number</th>
+		                        <th>car model</th>
+		                        <th>car category</th>
 		                        <th>schedule</th>
 		                        <th>booking type</th>
 		                        <th>total_cost</th>
@@ -29,15 +32,17 @@
 		                <tbody>
 		                	@foreach($bookings as $booking)
 			                    <tr class="tr-shadow">
-			                        <td>{{ $booking->customer->first_name.' '.$booking->customer->last_name }}</td>
+			                        <td>{{ ucfirst($booking->customer->first_name.' '.$booking->customer->last_name) }}</td>
 			                        <td><span class="block-email">{{ $booking->customer->email }}</span></td>
-			                        <td>{{ $booking->time}}
-			                        </td>
+			                        <td>{{ $booking->customer->phone_number}}</td>
+			                        <td>{{ ucfirst($booking->car_model->name)}}</td>
+			                        <td>{{ ucfirst($booking->car_model->car_make->car_category->name)}}</td>
+			                        <td>{{ $booking->time}}</td>
 			                        <td class="desc">{{ $booking->booking_time->name }}</td>
 			                        <td>{{ $booking->cost }}</td>
 			                        <td>{{ $booking->location }}</td>
 			                        <td><i class="text-success">Payment Confirmed</i></td>
-			                        <td><form method="POST" action="{{ route('frontdesk_drivers_cars', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-primary">Assign a Driver</button></form>
+			                        <td><div class="btn-group"><a href="{{ route('frontdesk_view_booking', $booking->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a><form method="POST" action="{{ route('frontdesk_drivers_cars', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-success">Assign a Driver</button></form>
 			                        </td>
 			                    </tr>
 			                    <tr class="spacer"></tr>

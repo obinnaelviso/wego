@@ -29,7 +29,7 @@
                                 <i class="fas fa-globe"></i>Verified Drivers</a>
                         </li>
                         <li>
-                            <a href="index2.html">
+                            <a href="#">
                                 <i class="fas fa-tachometer-alt"></i>Booked Drivers</a>
                         </li>
                         <li>
@@ -48,23 +48,27 @@
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
                             <a href="{{ route('frontdesk_pending_bookings') }}">
-                                <i class="fas fa-tachometer-alt"></i>Pending Bookings</a>
+                                <i class="fas fa-list"></i>Pending Bookings</a>
                         </li>
                         <li>
                             <a href="{{ route('frontdesk_assign_drivers') }}">
-                                <i class="fas fa-tachometer-alt"></i>Assign Drivers</a>
+                                <i class="fas fa-list"></i>Assign Drivers</a>
                         </li>
                         <li>
-                            <a href="index3.html">
-                                <i class="fas fa-tachometer-alt"></i>Active Bookings</a>
+                            <a href="{{ route('frontdesk_active_bookings') }}">
+                                <i class="fas fa-list"></i>Active Bookings</a>
                         </li>
                         <li>
-                            <a href="index4.html">
-                                <i class="fas fa-tachometer-alt"></i>Completed Bookings</a>
+                            <a href="{{ route('frontdesk_completed_bookings') }}">
+                                <i class="fas fa-list"></i>Completed Bookings</a>
                         </li>
                         <li>
-                            <a href="index4.html">
-                                <i class="fas fa-tachometer-alt"></i>Cancelled Bookings</a>
+                            <a href="{{ route('frontdesk_reviewed_bookings') }}">
+                                <i class="fas fa-list"></i>Reviewed Bookings</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('frontdesk_cancelled_bookings') }}">
+                                <i class="fas fa-list"></i>Cancelled Bookings</a>
                         </li>
                     </ul>
                 </li>
