@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Dashboard - Interviewed Drivers')
+@section('drivers', 'active')
+@section('interview_drivers', 'active')
 
 @section('content')
 	<div class="row m-t-75">
@@ -12,6 +14,11 @@
 	            	@if(session()->has('alert'))
                         <div class="alert alert-success">
                             {{ session()->get('alert') }}
+                        </div>
+                     @endif
+                     @if(session()->has('alert_reject'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('alert_reject') }}
                         </div>
                      @endif
 	                <thead>
@@ -36,7 +43,13 @@
 		                        <td>
 		                        	<span class="status--process text-warning">Interview</span>
 		                        </td>
-		                        <td><div class="btn-group"><a href="{{ route('frontdesk_view_driver', $driver->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a><form method="POST" action="{{ route('frontdesk_driver_verified', $driver->id) }}">@csrf<button type="submit" class="btn btn-success btn-sm"><i class="fas fa-paper-plane"></i> Send Verified</button></form></div>
+		                        <td>
+		                        	<div class="btn-group">
+		                        		<a href="{{ route('frontdesk_view_driver', $driver->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a>
+		                        		<form method="POST" action="{{ route('frontdesk_reject_driver', [$driver->id, -1]) }}">@csrf<button type="submit" class="btn btn-danger btn-sm"> <i class="fas fa-paper-plane"></i> Reject</button></form>
+		                        		<form method="POST" action="{{ route('frontdesk_driver_verified', $driver->id) }}">@csrf<button type="submit" class="btn btn-success btn-sm"><i class="fas fa-paper-plane"></i> Send Verified</button>
+		                        		</form>
+		                        	</div>
 		                        </td>
 		                    </tr>
 		                    <tr class="spacer"></tr>

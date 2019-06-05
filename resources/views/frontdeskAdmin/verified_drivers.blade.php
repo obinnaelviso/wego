@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Dashboard - Verified Drivers')
+@section('drivers', 'active')
+@section('verified_drivers', 'active')
 
 @section('content')
 	<div class="row m-t-75">
@@ -42,11 +44,11 @@
 	        </div> --}}
 	        <div class="table-responsive table-responsive-data2">
 	            <table class="table table-data2">
-	            	{{-- @if(session()->get('alert') == 0)
-                        <div class="alert alert-danger">This account is blocked!</div>
-                    @elseif(session()->get('alert') == 1)
-                    	<div class="alert alert-success">This account is unblocked!</div>
-                    @endif --}}
+	            	@if(session()->has('alert'))
+	                        <div class="alert alert-danger">
+	                            {{ session()->get('alert') }}
+	                        </div>
+	                     @endif
 	                <thead>
 	                    <tr>
 	                        <th>name</th>
@@ -66,11 +68,13 @@
 		                        </td>
 		                        <td class="desc">{{ $driver->phone_number }}</td>
 		                        <td>{{ $driver->created_at->format('d M Y') }}</td>
-		                        <td>
-		                        	@if($driver->account_status==4) <span class="status--denied">Blocked</span>@else <span class="status--process">Verified</span> @endif
+		                        <td><i class="status--process">Verified</i>
 		                        </td>
-		                        <td><div class="btn-group"><button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-ban"></i> block</button><button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> view</button></div>
-		                        	{{-- <form method="POST" action="{{ route('frontdesk_driver_interview', $driver->id) }}">@csrf<button type="submit" class="btn btn-outline-primary">Send Interview</button></form> --}}
+		                        <td>
+		                        	<div class="btn-group">
+		                        		<form method="POST" action="{{ route('frontdesk_send_block', $driver->id) }}">@csrf<button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-ban"></i> Block</button></form>
+		                        		<button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</button>
+		                        	</div>
 		                        </td>
 		                    </tr>
 		                    <tr class="spacer"></tr>

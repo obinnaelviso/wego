@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Driver;
 use App\Model\Car;
+use App\Model\Booking;
 // use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,5 +28,9 @@ class Driver extends Model
 
     public function car_models() {
         return $this->hasMany(CarModel::class);
+    }
+
+    public function booking() {
+        return $this->hasOne(Booking::class);
     }
 }

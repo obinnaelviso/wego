@@ -44,12 +44,26 @@ Route::post('/frontdesk-admin/dashboard/new-drivers/{driver}/action', 'Web\Front
 Route::get('/frontdesk-admin/dashboard/interview-drivers', 'Web\FrontdeskAdminController@interview_drivers')->name('frontdesk_interview_drivers');
 Route::post('/frontdesk-admin/dashboard/interview-drivers/{driver}/action', 'Web\FrontdeskAdminController@send_verified')->name('frontdesk_driver_verified');
 
-// Verified Drivers, perform block and unblock functions
+// Verified Drivers, perform block function
 Route::get('/frontdesk-admin/dashboard/verified-drivers', 'Web\FrontdeskAdminController@verified_drivers')->name('frontdesk_verified_drivers');
-Route::post('/frontdesk-admin/dashboard/verified-drivers/{driver}/action/block', 'Web\FrontdeskAdminController@send_block')->name('frontdesk_driver_block');
-Route::post('/frontdesk-admin/dashboard/verified-drivers/{driver}/action/unblock', 'Web\FrontdeskAdminController@send_unblock')->name('frontdesk_driver_unblock');
+Route::post('/frontdesk-admin/dashboard/verified-drivers/{driver}/block', 'Web\FrontdeskAdminController@send_block')->name('frontdesk_send_block');
 
-// Booking
+// Blocked Drivers, perform unblock function
+Route::get('/frontdesk-admin/dashboard/blocked-drivers', 'Web\FrontdeskAdminController@blocked_drivers')->name('frontdesk_blocked_drivers');
+Route::post('/frontdesk-admin/dashboard/blocked-drivers/{driver}/unblock', 'Web\FrontdeskAdminController@send_unblock')->name('frontdesk_send_unblock');
+
+// Booked Drivers
+Route::get('/frontdesk-admin/dashboard/booked-drivers', 'Web\FrontdeskAdminController@booked_drivers')->name('frontdesk_booked_drivers');
+
+// Rejected Drivers
+Route::get('/frontdesk-admin/dashboard/rejected-drivers', 'Web\FrontdeskAdminController@rejected_drivers')->name('frontdesk_rejected_drivers');
+
+// Reject Drivers
+Route::post('/frontdesk-admin/dashboard/drivers/{driver}/reject/{code}', 'Web\FrontdeskAdminController@reject_driver')->name('frontdesk_reject_driver');
+
+
+
+/*----------------------------------------* Booking *----------------------------------------*/
 // Show pending Bookings, set confirm payment 
 Route::get('/frontdesk-admin/dashboard/pending-bookings', 'Web\FrontdeskAdminController@pending_bookings')->name('frontdesk_pending_bookings');
 Route::post('/frontdesk-admin/dashboard/pending-bookings/{booking}/confirm-payment', 'Web\FrontdeskAdminController@confirm_payment')->name('frontdesk_confirm_payment');

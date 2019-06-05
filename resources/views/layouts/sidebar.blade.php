@@ -4,11 +4,11 @@
         </div>
         <nav class="navbar-sidebar2">
             <ul class="list-unstyled navbar__list">
-                <li class="active">
+                <li class="">
                     <a href="{{ route('frontdesk_home') }}">
                         <i class="fas fa-home"></i>Home</a>
                 </li>
-                <li class="has-sub">
+                <li class="has-sub @yield('drivers')">
                     <a class="js-arrow" href="#">
                         <i class="fas fa-globe"></i>Manage Drivers
                         <span class="arrow">
@@ -16,25 +16,29 @@
                         </span>
                     </a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li>
+                        <li class=" @yield('new_drivers') ">
                             <a href="{{ route('frontdesk_new_drivers') }}">
                                 <i class="fas fa-globe"></i>New Drivers</a>
                         </li>
-                        <li>
+                        <li class="@yield('interview_drivers')">
                             <a href="{{ route('frontdesk_interview_drivers') }}">
                                 <i class="fas fa-globe"></i>Interviewed Drivers</a>
                         </li>
-                        <li>
+                        <li class="@yield('verified_drivers')">
                             <a href="{{ route('frontdesk_verified_drivers')}}">
                                 <i class="fas fa-globe"></i>Verified Drivers</a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-tachometer-alt"></i>Booked Drivers</a>
+                        <li class="@yield('blocked_drivers')">
+                            <a href="{{ route('frontdesk_blocked_drivers') }}">
+                                <i class="fas fa-globe"></i>Blocked Drivers</a>
                         </li>
-                        <li>
-                            <a href="index3.html">
-                                <i class="fas fa-tachometer-alt"></i>Rejected Drivers</a>
+                        <li class="@yield('booked_drivers')">
+                            <a href="{{ route('frontdesk_booked_drivers') }}">
+                                <i class="fas fa-globe"></i>Booked Drivers</a>
+                        </li>
+                        <li class="@yield('rejected_drivers')">
+                            <a href="{{ route('frontdesk_rejected_drivers') }}">
+                                <i class="fas fa-globe"></i>Rejected Drivers</a>
                         </li>
                     </ul>
                 </li>
