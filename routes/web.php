@@ -58,6 +58,9 @@ Route::post('/frontdesk-admin/dashboard/pending-bookings/{booking}/confirm-payme
 Route::get('/frontdesk-admin/dashboard/assign-drivers', 'Web\FrontdeskAdminController@assign_drivers')->name('frontdesk_assign_drivers');
 Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/drivers-cars', 'Web\FrontdeskAdminController@drivers_cars')->name('frontdesk_drivers_cars');
 Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/{driver}/action', 'Web\FrontdeskAdminController@send_driver')->name('frontdesk_send_driver');
+
+	// View-booking
+Route::get('/frontdesk-admin/dashboard/bookings/{booking}/view', 'Web\FrontdeskAdminController@view_booking')->name('frontdesk_view_booking');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

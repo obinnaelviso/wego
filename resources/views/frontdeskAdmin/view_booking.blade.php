@@ -86,6 +86,30 @@
                             @endswitch
                         </td>
                     </tr>
+                    <tr>
+                            @switch($booking->status)
+                                @case(0)
+                                    <td><em>Action</em></td>
+                                    <td>
+                                    <form method="POST" action="{{ route('frontdesk_confirm_payment', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-primary">Confirm Payment</button></form></td>
+                                    @break
+                                @case(1)
+                                    <td><em>Action</em></td>
+                                    <td>
+                                    <form method="POST" action="{{ route('frontdesk_drivers_cars', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-primary">Assign a Driver</button></form></td>
+                                    @break
+                                @case(2)
+                                    <td><em>Action</em></td>
+                                    <td>
+                                    <form method="POST" action="{{ route('frontdesk_cancel_booking', $booking->id) }}">@csrf<button type="submit" class="btn btn-sm btn-outline-warning">Cancel Booking</button></form></td>
+                                    @break
+                                @case(5)
+                                    <td><em>Action</em></td>
+                                    <td>
+                                    <form method="POST" action="{{-- {{ route('frontdesk_cancel_booking', $booking->id) }} --}}">@csrf<button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-eye"></i> Show Review</button></form>
+                                    @break</td>
+                            @endswitch
+                    </tr>
                 </tbody>
             </table>
         </div>

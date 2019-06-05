@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Model\Driver;
 use App\Model\Booking;
-use App\Model\Car;
+use App\Model\CarModel;
+use App\Model\Customer;
 use App\Http\Controllers\Controller;
 
 class FrontdeskAdminController extends Controller
@@ -16,13 +17,18 @@ class FrontdeskAdminController extends Controller
     }
     public function index()
     {
-        return view('frontdeskAdmin.home');
+        $new_drivers = Driver::where('account_status', 0)->get();
+        $new_bookings = Booking::where('status', 0)->get();
+        $new_cars = CarModel::where('status', 0)->get();
+        $registered_customers = Customer::all();
+
+        return view('frontdeskAdmin.home', compact(['new_drivers','new_bookings','new_cars','registered_customers']));
     }
 
     // Display the information of a driver
     public function view_driver(Driver $driver)
     {
-        $car = $driver->cars()->first();
+        $car = $driver->car_models()->first();
         return view('frontdeskAdmin.view_driver', compact(['driver','car']));
     }
 
@@ -88,7 +94,7 @@ class FrontdeskAdminController extends Controller
     	// Pending bookings
     public function pending_bookings()
     {
-    	$bookings = Booking::where('status', 0)->orderBy('created_at','asc')->paginate(10);
+    	$bookings = Booking::where('status', 0)->orderBy('created_at','asc')->paginate(20);
         return view('frontdeskAdmin.pending_bookings', compact('bookings'));
     }
 
@@ -108,21 +114,80 @@ class FrontdeskAdminController extends Controller
 
     public function drivers_cars(Booking $booking)
     {
-    	$drivers_cars = Car::all();
-        return $drivers_cars;
-        // return view('frontdeskAdmin.drivers_cars', compact(['drivers_cars', 'booking']));
+    	$drivers_cars = CarModel::where('name', $booking->car_model->name)->get();
+        // return $drivers_cars;
+        return view('frontdeskAdmin.drivers_cars', compact(['drivers_cars','booking']));
     }
 
-    // Booking status -- 2 -- Active booking
-    // Drivers status -- 3 -- Assigned
+    // Booking status -- 3 -- Active booking
+    // Car Model status -- 2 -- Booked 
+    // Drivers status -- 3 -- Booked
     public function send_driver(Booking $booking, Driver $driver)
     {
-    	$booking->status = 2;
+    	$booking->status = 3;
     	$booking->driver_id = $driver->id;
-    	$driver->status = 3;
+        $car_model = CarModel::where('driver_id', $driver->id)->first();
+        $car_model->status = 2;
+    	$driver->account_status = 3;
+        $driver->save();
+        $car_model->save();
     	$booking->save();
     	session()->flash('alert', 'Driver assigned to this booking!');
     	return redirect()->route('frontdesk_assign_drivers');
     }
 
+    // Show Active bookings
+        // Booking status -- 3 -- Active booking
+    public function active_bookings()
+    {
+        $bookings = Booking::where('status', 3)->orderBy('updated_at','asc')->paginate(20);
+        return view('frontdeskAdmin.active_bookings', compact('bookings'));
+    }
+
+    // Booking status -- 6 -- Cancel booking
+    // Car Model status -- 1 -- Verified 
+    // Drivers status -- 2 -- Verified
+    public function cancel_booking(Booking $booking)
+    {
+        $driver = Driver::find($booking->driver_id);
+        $booking->status = 6;
+        $car_model = CarModel::where('driver_id', $booking->driver_id)->first();
+        $car_model->status = 1;
+        $driver->account_status = 2;
+        $driver->save();
+        // $car_model->save();
+        $booking->save();
+        session()->flash('alert', 'Booking cancelled!');
+        return redirect()->route('frontdesk_active_bookings');
+    }
+
+    // Show Completed bookings
+        // Booking status -- 4 -- Completed booking
+    public function completed_bookings()
+    {
+        $bookings = Booking::where('status', 4)->orderBy('updated_at','desc')->paginate(20);
+        return view('frontdeskAdmin.completed_bookings', compact('bookings'));
+    }
+
+    // Show Completed bookings
+        // Booking status -- 5 -- Reviewed booking
+    public function reviewed_bookings()
+    {
+        $bookings = Booking::where('status', 5)->orderBy('updated_at','desc')->paginate(20);
+        return view('frontdeskAdmin.reviewed_bookings', compact('bookings'));
+    }
+
+    // Show Cancelled bookings
+        // Booking status -- 6 -- Cancelled booking
+    public function cancelled_bookings()
+    {
+        $bookings = Booking::where('status', 6)->orderBy('updated_at','desc')->paginate(20);
+        return view('frontdeskAdmin.cancelled_bookings', compact('bookings'));
+    }
+
+    // View booking details
+    public function view_booking(Booking $booking)
+    {
+        return view('frontdeskAdmin.view_booking', compact('booking'));
+    }
 }
