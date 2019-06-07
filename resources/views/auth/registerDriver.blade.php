@@ -136,7 +136,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label  for="car_model">Account Type</label>
-                                    <select class="form-control" id="acc_type" name="acc_type">
+                                    <select class="form-control" id="acc_type" name="acc_type" onchange="if(this.selectedIndex) message();">
                                       <option>Choose Account Type:</option>
                                       <option name="acc_type" value="savings">Savings</option>
                                       <option name="acc_type" value="current">Current</option>
@@ -228,7 +228,11 @@
 
     <!-- Main JS-->
     <script src="/js/global.js"></script>
-
+    <script>
+        function message() {
+            alert("Soft");
+        }
+    </script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>

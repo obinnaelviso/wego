@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('title', 'Dashboard - View Driver Information')
+@section('drivers', 'active')
 
 @section('content')
 <div class="row m-t-75">
@@ -48,27 +49,27 @@
                 <tbody>
                     <tr>
                         <td>Car Model</td>
-                        <td>{{ ucfirst($car_model->name) }}</td>
+                        <td>{{ ucfirst($car->car_model->name) }}</td>
                     </tr>
                     <tr>
                         <td>Car Make</td>
-                        <td>{{ ucfirst($car_model->car_make->name) }}</td>
+                        <td>{{ ucfirst($car->car_model->car_make->name) }}</td>
                     </tr>
                     <tr>
                         <td>Plate Number</td>
-                        <td>{{ strtoupper($car_model->plate_number) }}</td>
+                        <td>{{ strtoupper($car->plate_number) }}</td>
                     </tr>
                     <tr>
                         <td>Year</td>
-                        <td>{{ $car_model->year }}</td>
+                        <td>{{ $car->year }}</td>
                     </tr>
                     <tr>
                         <td>Colour</td>
-                        <td>{{ $car_model->colour }}</td>
+                        <td>{{ $car->colour }}</td>
                     </tr>
                     <tr>
                         <td>Car Image</td>
-                        <td>{{ $car_model->img_path }}</td>
+                        <td>{{ $car->default_img }}</td>
                     </tr>
                     <tr>
                         <td>Drivers License</td>

@@ -1,3 +1,4 @@
+@section('header_style', 'background-color: Purple; height: 70px')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +13,7 @@
         <!-- PAGE CONTAINER-->
         <div class="page-container2">
             <!-- HEADER DESKTOP-->
-            <header class="header-desktop2">
+            <header class="header-desktop2"  style="@yield('header_style')">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap2">

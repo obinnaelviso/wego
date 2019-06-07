@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Handle registration for drivers and frontdesk admin
 Route::get('/drivers/register', 'Web\Auth\RegisterController@register_driver');
 Route::get('/frontdesk-admin/register', 'Web\Auth\RegisterController@register_frontdesk_admin');
-Route::post('/drivers/register', 'Web\Auth\RegisterController@add_driver')->name('registerDriver');
+Route::post('/drivers/register?q=null', 'Web\Auth\RegisterController@add_driver')->name('registerDriver');
 Route::post('/frontdesk-admin/register', 'Web\Auth\RegisterController@add_frontdeskAdmin')->name('registerFrontdesk');
 
 // Login - Logout
@@ -64,11 +64,11 @@ Route::post('/frontdesk-admin/dashboard/drivers/{driver}/reject/{code}', 'Web\Fr
 
 
 /*----------------------------------------* Booking *----------------------------------------*/
-// Show pending Bookings, set confirm payment 
+	// Show pending Bookings, set confirm payment 
 Route::get('/frontdesk-admin/dashboard/pending-bookings', 'Web\FrontdeskAdminController@pending_bookings')->name('frontdesk_pending_bookings');
 Route::post('/frontdesk-admin/dashboard/pending-bookings/{booking}/confirm-payment', 'Web\FrontdeskAdminController@confirm_payment')->name('frontdesk_confirm_payment');
 
-// Assign-bookings
+	// Assign-bookings
 Route::get('/frontdesk-admin/dashboard/assign-drivers', 'Web\FrontdeskAdminController@assign_drivers')->name('frontdesk_assign_drivers');
 Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/drivers-cars', 'Web\FrontdeskAdminController@drivers_cars')->name('frontdesk_drivers_cars');
 Route::post('/frontdesk-admin/dashboard/assign-drivers/{booking}/{driver}/action', 'Web\FrontdeskAdminController@send_driver')->name('frontdesk_send_driver');
@@ -88,6 +88,31 @@ Route::get('/frontdesk-admin/dashboard/cancelled-bookings', 'Web\FrontdeskAdminC
 
 	// View-booking
 Route::get('/frontdesk-admin/dashboard/bookings/{booking}/view', 'Web\FrontdeskAdminController@view_booking')->name('frontdesk_view_booking');
+
+
+
+/*----------------------------------------* Cars *----------------------------------------*/
+	// New Cars / Verify or Reject Cars
+Route::get('/frontdesk-admin/dashboard/new-cars', 'Web\FrontdeskAdminController@new_cars')->name('frontdesk_new_cars');
+
+Route::post('/frontdesk-admin/dashboard/new-cars/{car_driver}/verify', 'Web\FrontdeskAdminController@verify_car')->name('frontdesk_verify_car'); // Verify cars
+
+Route::post('/frontdesk-admin/dashboard/new-cars/{car_driver}/reject/{code}', 'Web\FrontdeskAdminController@reject_car')->name('frontdesk_reject_car'); // Reject cars
+
+	// View Car Information
+Route::get('/frontdesk-admin/dashboard/{car}/view', 'Web\FrontdeskAdminController@view_car')->name('frontdesk_view_car');
+
+	// Show verified cars
+Route::get('/frontdesk-admin/dashboard/verified-cars', 'Web\FrontdeskAdminController@verified_cars')->name('frontdesk_verified_cars');
+
+	// Show rejected cars
+Route::get('/frontdesk-admin/dashboard/rejected-cars', 'Web\FrontdeskAdminController@rejected_cars')->name('frontdesk_rejected_cars');
+
+	// Show banned cars
+Route::get('/frontdesk-admin/dashboard/banned-cars', 'Web\FrontdeskAdminController@banned_cars')->name('frontdesk_banned_cars');
+Route::post('/frontdesk-admin/dashboard/new-cars/{car_driver}/unban', 'Web\FrontdeskAdminController@unban_car')->name('frontdesk_unban_car');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

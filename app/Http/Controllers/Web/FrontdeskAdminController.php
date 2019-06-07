@@ -26,18 +26,19 @@ class FrontdeskAdminController extends Controller
         return view('frontdeskAdmin.home', compact(['new_drivers','new_bookings','new_cars','registered_customers']));
     }
 
+    /*------------------------------------* Driver *-------------------------------------*/
     // Display the information of a driver
     public function view_driver(Driver $driver)
     {
-        $car_model = $driver->car_models()->first();
-        return view('frontdeskAdmin.view_driver', compact(['driver','car_model']));
+        $car = $driver->car_drivers()->first();
+        return view('frontdeskAdmin.view_driver', compact(['driver','car']));
     }
 
     // Display the newly registered drivers
     // Driver account status -- 0 -- new|unverified
     public function new_drivers()
     {
-    	$drivers = Driver::where('account_status', 0)->orderBy('id','desc')->paginate(5);
+    	$drivers = Driver::where('account_status', 0)->orderBy('id','desc')->paginate(20);
         return view('frontdeskAdmin.new_drivers', compact('drivers'));
     }
 
@@ -55,7 +56,7 @@ class FrontdeskAdminController extends Controller
     // Driver account status -- 1 -- interviewed
     public function interview_drivers()
     {
-    	$drivers = Driver::where('account_status', 1)->orderBy('updated_at','asc')->paginate(5);
+    	$drivers = Driver::where('account_status', 1)->orderBy('updated_at','asc')->paginate(20);
         return view('frontdeskAdmin.interview_drivers', compact('drivers'));
     }
 
@@ -73,7 +74,7 @@ class FrontdeskAdminController extends Controller
     // Driver account status -- 2 -- verified
     public function verified_drivers()
     {
-    	$drivers = Driver::where('account_status', 2)->orderBy('updated_at','asc')->paginate(10);
+    	$drivers = Driver::where('account_status', 2)->orderBy('updated_at','asc')->paginate(20);
         return view('frontdeskAdmin.verified_drivers', compact('drivers'));
     }
 
@@ -91,7 +92,7 @@ class FrontdeskAdminController extends Controller
     // Driver account status -- 4 -- blocked
     public function blocked_drivers()
     {
-        $drivers = Driver::where('account_status', 4)->orderBy('updated_at','desc')->paginate(10);
+        $drivers = Driver::where('account_status', 4)->orderBy('updated_at','desc')->paginate(20);
         return view('frontdeskAdmin.blocked_drivers', compact('drivers'));
     }
 
@@ -108,7 +109,7 @@ class FrontdeskAdminController extends Controller
     // Driver account status -- 3 -- booked
     public function booked_drivers()
     {
-        $drivers = Driver::where('account_status', 3)->orderBy('updated_at','asc')->paginate(10);
+        $drivers = Driver::where('account_status', 3)->orderBy('updated_at','asc')->paginate(20);
         return view('frontdeskAdmin.booked_drivers', compact('drivers'));
     }
 
@@ -117,7 +118,7 @@ class FrontdeskAdminController extends Controller
     public function rejected_drivers()
     {
         $drivers = Driver::where('account_status', -1)
-                        ->orWhere('account_status', -2)->orderBy('updated_at','desc')->paginate(10);
+                        ->orWhere('account_status', -2)->orderBy('updated_at','desc')->paginate(20);
         return view('frontdeskAdmin.rejected_drivers', compact('drivers'));
     }
 
@@ -130,7 +131,9 @@ class FrontdeskAdminController extends Controller
         return back();
     }
 
-    // Bookings
+
+
+    /*------------------------------------* Bookings *-------------------------------------*/
     	// Pending bookings
     public function pending_bookings()
     {
@@ -150,7 +153,7 @@ class FrontdeskAdminController extends Controller
         // Assign driver to a booking
     public function assign_drivers()
     {
-    	$bookings = Booking::where('status', 1)->orderBy('updated_at','asc')->paginate(10);
+    	$bookings = Booking::where('status', 1)->orderBy('updated_at','asc')->paginate(20);
         return view('frontdeskAdmin.assign_drivers', compact('bookings'));
     }
 
@@ -239,11 +242,77 @@ class FrontdeskAdminController extends Controller
         return view('frontdeskAdmin.view_booking', compact('booking'));
     }
 
-    /*---------------------------* Car *---------------------------*/
-        // View car details
-    public function new_cars(Booking $booking)
+
+
+    /*------------------------------------* Car *-------------------------------------*/
+        // Show unverified cars
+        // Car status -- 0 -- unverified
+    public function new_cars()
     {
-        $cars = Car::
-        return view('frontdeskAdmin.view_booking', compact('booking'));
+        $cars = CarDriver::where('status', 0)->orderBy('created_at','desc')->paginate(20);
+        return view('frontdeskAdmin.new_cars', compact('cars'));
+    }
+
+        // Verify Cars
+        // Car status -- 1 --verify
+    public function verify_car(CarDriver $car_driver)
+    {
+        $car_driver->status = 1;
+        $car_driver->save();
+        session()->flash('alert', 'Car Verified!');
+        return back();
+    }
+
+        // Reject / Ban Car
+        // Car status -- -2 --rejected
+        // Car status -- -1 --banned
+    public function reject_car(CarDriver $car_driver, $code)
+    {
+        $car_driver->status = $code;
+        $car_driver->save();
+        if($code == -2)
+            session()->flash('alert_reject', 'Car Rejected!');
+        else
+            session()->flash('alert_reject', 'Car Banned!');
+        return back();
+    }
+
+    // View Car
+    public function view_car(CarDriver $car)
+    {
+        return view('frontdeskAdmin.view_car', compact('car'));
+    }
+
+    // Show verified cars
+        // Car status -- 1 -- verified
+    public function verified_cars()
+    {
+        $cars = CarDriver::where('status', 1)->orderBy('updated_at','desc')->paginate(20);
+        return view('frontdeskAdmin.verified_cars', compact('cars'));
+    }
+
+    // Show rejected cars
+        // Car status -- -2 -- rejected
+    public function rejected_cars()
+    {
+        $cars = CarDriver::where('status', -2)->orderBy('updated_at','desc')->paginate(20);
+        return view('frontdeskAdmin.rejected_cars', compact('cars'));
+    }
+
+        // Show banned cars
+        // Car status -- -1 -- banned
+    public function banned_cars()
+    {
+        $cars = CarDriver::where('status', -1)->orderBy('updated_at','desc')->paginate(20);
+        return view('frontdeskAdmin.banned_cars', compact('cars'));
+    }
+        // Unban a car
+        // Car status -- 1 -- verified
+    public function unban_car(CarDriver $car_driver)
+    {
+        $car_driver->status = 1;
+        $car_driver->save();
+        session()->flash('alert', 'Car Unbanned!');
+        return back();
     }
 }

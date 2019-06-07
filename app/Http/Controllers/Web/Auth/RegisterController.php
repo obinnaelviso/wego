@@ -20,9 +20,9 @@ class RegisterController extends Controller
     	return view('auth.registerFrontdeskAdmin');
     }
 
-    public function register_driver() {
+    public function register_driver($q=null) {
         $car_models = CarModel::all();
-    	return view('auth.registerDriver', compact('car_models'));
+    	return view('auth.registerDriver', compact(['car_models','q']));
     }
 
     public function add_driver(Request $request)

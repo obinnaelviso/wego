@@ -1,6 +1,6 @@
-<div class="header-button2">
+<div class="header-button2" >
     <div>
-        <a href="{{ route('logout') }}">LOGOUT</a>
+        <a href="{{ route('logout') }}" style="color: white; font-weight: bolder; border-style: solid; padding: 5px; border-radius: 5px; margin-right: 20px">LOGOUT</a>
     </div>
     <!-- <div class="header-button-item has-noti js-item-menu">
         <i class="zmdi zmdi-notifications"></i>

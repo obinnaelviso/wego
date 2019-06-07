@@ -21,7 +21,7 @@ class Request extends FormRequest
     public function failedValidation(Validator $validator) {
         $response = [];
         $response['message'] = 201;
-        $response['error'] =  $validator->errors()->getMessageBag();
+        $response['error'] =  $validator->errors()->all();
         $response['data'] = [];
         throw new HttpResponseException(response()->json($response, 200));
     }

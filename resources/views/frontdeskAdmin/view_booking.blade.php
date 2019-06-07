@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('title', 'Dashboard - View Booking Information')
+@section('bookings', 'active')
 
 @section('content')
 <div class="row m-t-75">
